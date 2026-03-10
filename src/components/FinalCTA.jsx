@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { FadeInUp } from './ui/AnimatedSection'
 import { Button } from './ui/Button'
 
-const BG_IMAGE = 'https://static.tildacdn.com/tild6536-6132-4062-b839-386462353739/2022-01-12_14-41-44_.webp'
+const BG_IMAGE = 'https://static.tildacdn.com/tild3766-3831-4134-a436-626432363166/DSC02048.JPG'
 
 export default function FinalCTA() {
   const handleBookingClick = (e) => {

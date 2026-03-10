@@ -139,19 +139,8 @@ export default function Reviews() {
             ))}
           </div>
 
-          {/* Right column: group photo + stats */}
+          {/* Right column: stats */}
           <div className="flex flex-col gap-5">
-            <FadeInUp delay={0.1}>
-              <div className="overflow-hidden rounded-[24px] border border-white/10">
-                <img
-                  src="https://static.tildacdn.com/tild3063-6663-4531-b034-333266656464/IMG_0596.png"
-                  alt="Группа путешественников Fun2Go в Осетии"
-                  className="aspect-[4/5] w-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-            </FadeInUp>
-
             <FadeInUp delay={0.2}>
               <div className="rounded-[20px] border border-white/10 bg-[rgba(255,255,255,0.1)] p-5 backdrop-blur-sm">
                 <div className="grid grid-cols-2 gap-4">

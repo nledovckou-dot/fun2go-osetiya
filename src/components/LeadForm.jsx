@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
-import { PhoneCall, Send } from 'lucide-react'
+import { useState } from 'react'
+import { Send } from 'lucide-react'
 import { FadeInUp } from './ui/AnimatedSection'
 import { Button } from './ui/Button'
 
-const CONTACT_OPTIONS = ['Звонок', 'WhatsApp', 'Telegram']
+const CONTACT_OPTIONS = ['Звонок', 'Telegram', 'MAX']
 
 function formatPhone(value) {
   const digits = value.replace(/\D/g, '')
@@ -16,7 +16,6 @@ function formatPhone(value) {
 }
 
 export default function LeadForm() {
-  const [selectedDate, setSelectedDate] = useState('')
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [contact, setContact] = useState('Telegram')
@@ -24,14 +23,6 @@ export default function LeadForm() {
   const [marketingConsent, setMarketingConsent] = useState(true)
   const [submitted, setSubmitted] = useState(false)
 
-  useEffect(() => {
-    const handler = (event) => {
-      setSelectedDate(event.detail || '')
-    }
-
-    window.addEventListener('fun2go:set-date', handler)
-    return () => window.removeEventListener('fun2go:set-date', handler)
-  }, [])
 
   const handlePhoneChange = (e) => {
     let value = e.target.value
@@ -45,7 +36,6 @@ export default function LeadForm() {
     e.preventDefault()
     const message = [
       'Новая заявка с лендинга Fun2Go',
-      selectedDate ? `Даты: ${selectedDate}` : 'Даты: не выбраны',
       `Имя: ${name}`,
       `Телефон: ${phone}`,
       `Предпочтительный способ связи: ${contact}`,
@@ -121,18 +111,6 @@ export default function LeadForm() {
                     />
                   </div>
 
-                  <div>
-                    <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-text">
-                      Выбранные даты
-                    </label>
-                    <input
-                      type="text"
-                      value={selectedDate}
-                      readOnly
-                      placeholder="Выберите даты в блоке выше или оставьте поле пустым"
-                      className="min-h-[46px] w-full rounded-[14px] border border-border bg-white px-4 py-3 text-base text-text outline-none"
-                    />
-                  </div>
 
                   <fieldset>
                     <legend className="mb-2 block text-xs font-semibold uppercase tracking-wide text-text">

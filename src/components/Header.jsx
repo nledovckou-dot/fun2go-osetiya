@@ -8,7 +8,6 @@ const NAV_ITEMS = [
   { label: 'Программа', href: '#program' },
   { label: 'Фото', href: '#gallery' },
   { label: 'Что включено', href: '#included' },
-  { label: 'Отзывы', href: '#reviews' },
 ]
 
 export default function Header() {

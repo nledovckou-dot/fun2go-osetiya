@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowLeft, ArrowRight, Expand, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, X } from 'lucide-react'
 import { FadeInUp } from './ui/AnimatedSection'
 
 const GALLERY_SOURCES = [
@@ -47,329 +47,200 @@ const GALLERY_IMAGES = GALLERY_SOURCES.map((src, index) => ({
   alt: `Фото тура Fun2Go в Осетии ${index + 1}`,
 }))
 
-const FEATURE_LABELS = ['Главный вайб тура', 'Горы и воздух', 'Башни и древности', 'Команда и эмоции']
-
-const SPOTLIGHT_COPY = [
-  'Тёплые остановки и очень красивый ритм поездки',
-  'Башни, крепости и визуальный характер маршрута',
-  'Компания, высота и тот самый беззаботный тур',
-]
-
-const CAPTION_POOL = [
-  'Горы, ради которых открывают этот маршрут снова и снова',
-  'Тёплые остановки, красивые отели и медленный отдых без суеты',
-  'Старинные башни, крепости и весь визуальный характер Осетии',
-  'Компания, столы на высоте и та самая энергия авторского тура',
-  'Дорога, каньоны, перевалы и очень кинематографичный воздух',
-  'Кадры, которые на основном сайте лучше всего продают настроение поездки',
-]
-
-function getGridClasses(index) {
-  const cycle = index % 10
-  if (cycle === 0) return 'md:col-span-2 md:row-span-2'
-  if (cycle === 3) return 'lg:col-span-2'
-  if (cycle === 5) return 'md:row-span-2'
-  if (cycle === 7) return 'md:col-span-2'
-  return ''
-}
-
-function getFrameClasses(index) {
-  const cycle = index % 10
-  if (cycle === 0 || cycle === 5) {
-    return 'aspect-[4/5] md:h-full md:aspect-auto'
-  }
-  if (cycle === 3 || cycle === 7) {
-    return 'aspect-[16/11] md:h-full md:aspect-auto'
-  }
-  return 'aspect-[4/5] md:h-full md:aspect-auto'
-}
-
-function getCaption(index) {
-  return CAPTION_POOL[index % CAPTION_POOL.length]
-}
-
-function getVisibleThumbs(selectedIndex) {
-  const maxThumbs = 6
-  const start = Math.max(
-    0,
-    Math.min(selectedIndex - 2, GALLERY_IMAGES.length - maxThumbs),
-  )
-  return GALLERY_IMAGES.slice(start, start + maxThumbs).map((image, offset) => ({
-    ...image,
-    index: start + offset,
-  }))
-}
+const CARD_WIDTH = 340
+const CARD_GAP = 20
 
 export default function PhotoGallery() {
+  const scrollRef = useRef(null)
   const [selectedIndex, setSelectedIndex] = useState(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+  const selectedImage = selectedIndex !== null ? GALLERY_IMAGES[selectedIndex] : null
 
-  const featuredImage = GALLERY_IMAGES[0]
-  const topRailImages = GALLERY_IMAGES.slice(1, 4)
-  const galleryGridImages = GALLERY_IMAGES.slice(4)
-  const selectedImage = selectedIndex === null ? null : GALLERY_IMAGES[selectedIndex]
+  const updateScrollState = () => {
+    const el = scrollRef.current
+    if (!el) return
+    setCanScrollLeft(el.scrollLeft > 10)
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10)
+  }
 
   useEffect(() => {
-    if (selectedIndex === null) {
-      return undefined
-    }
+    const el = scrollRef.current
+    if (!el) return
+    el.addEventListener('scroll', updateScrollState, { passive: true })
+    updateScrollState()
+    return () => el.removeEventListener('scroll', updateScrollState)
+  }, [])
 
-    const previousOverflow = document.body.style.overflow
+  const scroll = (direction) => {
+    const el = scrollRef.current
+    if (!el) return
+    const amount = (CARD_WIDTH + CARD_GAP) * 2
+    el.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    if (selectedIndex === null) return undefined
+    const prev = document.body.style.overflow
     document.body.style.overflow = 'hidden'
-
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        setSelectedIndex(null)
-      }
-      if (event.key === 'ArrowRight') {
-        setSelectedIndex((current) => (
-          current === null ? 0 : (current + 1) % GALLERY_IMAGES.length
-        ))
-      }
-      if (event.key === 'ArrowLeft') {
-        setSelectedIndex((current) => (
-          current === null
-            ? GALLERY_IMAGES.length - 1
-            : (current - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length
-        ))
-      }
+    const onKey = (e) => {
+      if (e.key === 'Escape') setSelectedIndex(null)
+      if (e.key === 'ArrowRight') setSelectedIndex((c) => (c + 1) % GALLERY_IMAGES.length)
+      if (e.key === 'ArrowLeft') setSelectedIndex((c) => (c - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length)
     }
-
-    window.addEventListener('keydown', handleKeyDown)
-    return () => {
-      document.body.style.overflow = previousOverflow
-      window.removeEventListener('keydown', handleKeyDown)
-    }
+    window.addEventListener('keydown', onKey)
+    return () => { document.body.style.overflow = prev; window.removeEventListener('keydown', onKey) }
   }, [selectedIndex])
-
-  const showPrev = () => {
-    setSelectedIndex((current) => (
-      current === null
-        ? GALLERY_IMAGES.length - 1
-        : (current - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length
-    ))
-  }
-
-  const showNext = () => {
-    setSelectedIndex((current) => (
-      current === null ? 0 : (current + 1) % GALLERY_IMAGES.length
-    ))
-  }
 
   return (
     <section id="gallery" className="scroll-mt-24 bg-bg-alt py-14 md:scroll-mt-32 md:py-24">
       <div className="max-w-container mx-auto px-6 md:px-10 lg:px-12">
-        <div className="overflow-hidden rounded-[30px] border border-white/40 bg-[linear-gradient(180deg,rgba(255,255,255,0.65),rgba(255,249,236,0.88))] p-5 shadow-lg-ds backdrop-blur-xl md:rounded-[38px] md:p-8">
-          <FadeInUp>
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
-              Фото из туров
-            </p>
-            <h2 className="mt-3 max-w-[800px] font-heading text-[32px] font-bold leading-[0.94] tracking-tight text-text md:text-[56px]">
-              Как это выглядит вживую
-            </h2>
-            <p className="mt-4 max-w-[600px] text-base leading-relaxed text-text-light md:text-[17px]">
-              Горы, башни, термальные источники, осетинские застолья и та самая атмосфера беззаботного тура — всё настоящее, снято участниками и гидами.
-            </p>
-          </FadeInUp>
+        <FadeInUp>
+          <div className="flex items-end justify-between gap-6">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
+                Фото из туров
+              </p>
+              <h2 className="mt-3 max-w-[600px] font-heading text-[32px] font-bold leading-[0.94] tracking-tight text-text md:text-[56px]">
+                Как это выглядит вживую
+              </h2>
+              <p className="mt-4 max-w-[520px] text-base leading-relaxed text-text-light md:text-[17px]">
+                Горы, башни, термальные источники и та самая атмосфера беззаботного тура — всё настоящее, снято участниками и гидами.
+              </p>
+            </div>
 
-          <div className="mt-8 grid gap-4 xl:grid-cols-[minmax(0,1.35fr)_360px]">
-            <motion.button
-              type="button"
-              onClick={() => setSelectedIndex(0)}
-              className="group relative min-h-[360px] overflow-hidden rounded-[28px] border border-white/40 bg-[#1f0815] text-left shadow-lg-ds focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 md:min-h-[480px]"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-8% 0px' }}
-              transition={{ duration: 0.65, ease: [0.4, 0, 0.2, 1] }}
-            >
-              <img
-                src={featuredImage.src}
-                alt={featuredImage.alt}
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(34,10,21,0.12),rgba(34,10,21,0.12)_35%,rgba(34,10,21,0.84))]" />
-
-              <div className="relative flex h-full flex-col justify-between p-5 md:p-7">
-                <div className="flex items-start justify-between gap-4">
-                  <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
-                    {FEATURE_LABELS[0]}
-                  </span>
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-transform duration-300 group-hover:scale-110">
-                    <Expand size={18} />
-                  </span>
-                </div>
-
-                <div className="max-w-[560px]">
-                  <h3 className="font-heading text-[30px] font-bold leading-[0.96] tracking-tight text-white md:text-[48px]">
-                    Горы, от которых перехватывает дыхание
-                  </h3>
-                  <p className="mt-4 max-w-[480px] text-sm leading-relaxed text-white/75 md:text-base">
-                    Каждый тур — это новые виды, новые люди и новые истории. Кликни на любое фото, чтобы рассмотреть ближе.
-                  </p>
-                </div>
-              </div>
-            </motion.button>
-
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
-              {topRailImages.map((image, index) => (
-                <motion.button
-                  key={image.src}
-                  type="button"
-                  onClick={() => setSelectedIndex(index + 1)}
-                  className={`gallery-float-${index % 3} group relative overflow-hidden rounded-[24px] border border-white/40 bg-white p-2 text-left shadow-md-ds focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 ${index === 0 ? 'sm:col-span-2 xl:col-span-2' : ''}`}
-                  initial={{ opacity: 0, y: 28, scale: 0.98 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true, margin: '-8% 0px' }}
-                  transition={{ duration: 0.55, delay: index * 0.06, ease: [0.4, 0, 0.2, 1] }}
-                >
-                  <div className="relative overflow-hidden rounded-[18px]">
-                    <img
-                      src={image.src}
-                      alt={image.alt}
-                      className={`w-full object-cover transition-transform duration-500 group-hover:scale-[1.04] ${index === 0 ? 'aspect-[16/10]' : 'aspect-[4/5]'}`}
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent,rgba(25,8,18,0.82))] p-4">
-                      <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/70">
-                        {FEATURE_LABELS[index + 1]}
-                      </div>
-                      <div className="mt-1 max-w-[18ch] text-sm font-medium leading-snug text-white">
-                        {SPOTLIGHT_COPY[index]}
-                      </div>
-                    </div>
-                  </div>
-                </motion.button>
-              ))}
+            {/* Desktop arrows */}
+            <div className="hidden items-center gap-3 md:flex">
+              <button
+                type="button"
+                onClick={() => scroll('left')}
+                disabled={!canScrollLeft}
+                className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-primary/15 bg-white text-text transition-all hover:border-primary/30 hover:shadow-md disabled:opacity-30 disabled:hover:border-primary/15 disabled:hover:shadow-none"
+                aria-label="Листать влево"
+              >
+                <ArrowLeft size={20} />
+              </button>
+              <button
+                type="button"
+                onClick={() => scroll('right')}
+                disabled={!canScrollRight}
+                className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-primary/15 bg-white text-text transition-all hover:border-primary/30 hover:shadow-md disabled:opacity-30 disabled:hover:border-primary/15 disabled:hover:shadow-none"
+                aria-label="Листать вправо"
+              >
+                <ArrowRight size={20} />
+              </button>
             </div>
           </div>
+        </FadeInUp>
+      </div>
 
-          <div className="mt-8 grid grid-cols-2 gap-4 md:auto-rows-[140px] md:grid-cols-4 lg:auto-rows-[150px] lg:grid-cols-6">
-            {galleryGridImages.map((image, index) => (
-              <motion.button
-                key={image.src}
-                type="button"
-                onClick={() => setSelectedIndex(index + 4)}
-                className={`group relative overflow-hidden rounded-[24px] border border-white/45 bg-white p-2 text-left shadow-sm-ds focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 ${getGridClasses(index)}`}
-                initial={{ opacity: 0, y: 32 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-8% 0px' }}
-                transition={{ duration: 0.55, delay: (index % 8) * 0.04, ease: [0.4, 0, 0.2, 1] }}
-              >
-                <div className={`overflow-hidden rounded-[18px] ${getFrameClasses(index)}`}>
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="pointer-events-none absolute right-5 top-5">
-                  <span className="rounded-full border border-white/20 bg-[rgba(25,8,18,0.52)] p-2 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <Expand size={14} />
-                  </span>
-                </div>
-              </motion.button>
-            ))}
-          </div>
-        </div>
+      {/* Carousel */}
+      <div className="relative mt-10">
+        {/* Fade edges */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-bg-alt to-transparent md:w-16" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-bg-alt to-transparent md:w-16" />
 
-        <AnimatePresence>
-          {selectedImage && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[160] bg-[rgba(21,6,15,0.88)] backdrop-blur-md"
-              onClick={() => setSelectedIndex(null)}
+        <div
+          ref={scrollRef}
+          className="hide-scrollbar flex gap-5 overflow-x-auto scroll-smooth px-6 md:px-10 lg:px-12"
+          style={{ scrollSnapType: 'x mandatory' }}
+        >
+          {GALLERY_IMAGES.map((image, index) => (
+            <motion.button
+              key={image.src}
+              type="button"
+              onClick={() => setSelectedIndex(index)}
+              className="group relative flex-none cursor-pointer overflow-hidden rounded-[24px] border border-white/60 bg-white p-2 shadow-md transition-shadow hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              style={{ width: CARD_WIDTH, scrollSnapAlign: 'start' }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-5% 0px' }}
+              transition={{ duration: 0.5, delay: Math.min(index, 6) * 0.05, ease: [0.4, 0, 0.2, 1] }}
             >
-              <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-4 py-4 md:px-6 md:py-6">
-                <div className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
-                  {selectedIndex + 1} / {GALLERY_IMAGES.length}
-                </div>
+              <div className="overflow-hidden rounded-[18px]">
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  className="aspect-[3/4] w-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+                  loading="lazy"
+                />
+              </div>
+            </motion.button>
+          ))}
+        </div>
+      </div>
+
+      {/* Counter */}
+      <div className="max-w-container mx-auto mt-6 flex items-center justify-between px-6 md:px-10 lg:px-12">
+        <p className="text-sm text-text-muted">
+          {GALLERY_IMAGES.length} фото из реальных туров
+        </p>
+        <p className="text-sm text-text-muted">
+          Листай или кликни для просмотра →
+        </p>
+      </div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[160] bg-[rgba(21,6,15,0.92)] backdrop-blur-md"
+            onClick={() => setSelectedIndex(null)}
+          >
+            <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-4 py-4 md:px-6">
+              <div className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
+                {selectedIndex + 1} / {GALLERY_IMAGES.length}
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedIndex(null)}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/20"
+                aria-label="Закрыть"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="flex h-full items-center justify-center p-4 pt-20 md:p-8 md:pt-20">
+              <motion.div
+                key={selectedIndex}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.25 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative"
+              >
+                <img
+                  src={selectedImage.src}
+                  alt={selectedImage.alt}
+                  className="max-h-[80vh] max-w-[90vw] rounded-[20px] object-contain md:max-h-[85vh]"
+                />
+
                 <button
                   type="button"
-                  onClick={() => setSelectedIndex(null)}
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-colors hover:bg-white/15"
-                  aria-label="Закрыть галерею"
+                  onClick={(e) => { e.stopPropagation(); setSelectedIndex((c) => (c - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length) }}
+                  className="absolute left-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-[rgba(21,6,15,0.5)] text-white transition-colors hover:bg-[rgba(255,255,255,0.15)] md:left-5"
+                  aria-label="Предыдущее фото"
                 >
-                  <X size={18} />
+                  <ArrowLeft size={18} />
                 </button>
-              </div>
-
-              <div className="flex h-full items-center justify-center p-4 pt-20 md:p-8 md:pt-24">
-                <motion.div
-                  initial={{ opacity: 0, y: 24, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 24, scale: 0.98 }}
-                  transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                  onClick={(event) => event.stopPropagation()}
-                  className="grid w-full max-w-6xl gap-4 lg:grid-cols-[minmax(0,1fr)_320px]"
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); setSelectedIndex((c) => (c + 1) % GALLERY_IMAGES.length) }}
+                  className="absolute right-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-[rgba(21,6,15,0.5)] text-white transition-colors hover:bg-[rgba(255,255,255,0.15)] md:right-5"
+                  aria-label="Следующее фото"
                 >
-                  <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-[rgba(255,255,255,0.06)] shadow-xl-ds">
-                    <img
-                      src={selectedImage.src}
-                      alt={selectedImage.alt}
-                      className="max-h-[72vh] w-full object-contain md:max-h-[78vh]"
-                    />
-
-                    <button
-                      type="button"
-                      onClick={showPrev}
-                      className="absolute left-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-[rgba(21,6,15,0.42)] text-white transition-colors hover:bg-[rgba(255,255,255,0.16)] md:left-5"
-                      aria-label="Предыдущее фото"
-                    >
-                      <ArrowLeft size={18} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={showNext}
-                      className="absolute right-3 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-[rgba(21,6,15,0.42)] text-white transition-colors hover:bg-[rgba(255,255,255,0.16)] md:right-5"
-                      aria-label="Следующее фото"
-                    >
-                      <ArrowRight size={18} />
-                    </button>
-                  </div>
-
-                  <div className="flex flex-col justify-between rounded-[28px] border border-white/10 bg-[rgba(255,255,255,0.08)] p-4 text-white md:p-5">
-                    <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/55">
-                        {selectedIndex + 1} из {GALLERY_IMAGES.length}
-                      </p>
-                      <h3 className="mt-3 font-heading text-[28px] font-bold leading-[0.96] tracking-tight md:text-[34px]">
-                        {getCaption(selectedIndex)}
-                      </h3>
-                    </div>
-
-                    <div className="mt-6">
-                      <div className="mb-3 flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.18em] text-white/45">
-                        <span>Быстрый выбор</span>
-                        <span>{GALLERY_IMAGES.length} фото</span>
-                      </div>
-                      <div className="grid grid-cols-3 gap-2 sm:grid-cols-6 lg:grid-cols-3">
-                        {getVisibleThumbs(selectedIndex).map((image) => (
-                          <button
-                            key={image.src}
-                            type="button"
-                            onClick={() => setSelectedIndex(image.index)}
-                            className={`overflow-hidden rounded-[16px] border p-1 transition-all ${image.index === selectedIndex ? 'border-white bg-white/18' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
-                            aria-label={`Открыть фото ${image.index + 1}`}
-                          >
-                            <img
-                              src={image.src}
-                              alt={image.alt}
-                              className="aspect-square w-full rounded-[12px] object-cover"
-                            />
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+                  <ArrowRight size={18} />
+                </button>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

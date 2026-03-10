@@ -57,7 +57,7 @@ export default function LeadForm() {
   }
 
   return (
-    <section id="lead-form" className="bg-white py-14 md:py-24">
+    <section id="lead-form" className="bg-white py-10 md:py-16">
       <div className="max-w-container mx-auto px-6 md:px-10 lg:px-12">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <FadeInUp>
@@ -81,7 +81,7 @@ export default function LeadForm() {
           </FadeInUp>
 
           <FadeInUp delay={0.1}>
-            <div className="rounded-[28px] bg-bg-alt p-6 shadow-md-ds md:p-8">
+            <div className="rounded-[24px] bg-bg-alt p-5 shadow-md-ds md:p-6">
               {submitted ? (
                 <div className="rounded-[24px] bg-white p-8 text-center">
                   <h3 className="font-heading text-3xl font-bold text-text">
@@ -92,9 +92,9 @@ export default function LeadForm() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-3.5">
                   <div>
-                    <label className="mb-2 block text-sm font-semibold uppercase tracking-wide text-text">
+                    <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-text">
                       Имя
                     </label>
                     <input
@@ -103,12 +103,12 @@ export default function LeadForm() {
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Ваше имя"
                       required
-                      className="min-h-[56px] w-full rounded-[16px] border border-border bg-white px-5 py-4 text-base text-text outline-none transition focus:border-primary focus:shadow-[0_0_0_4px_rgba(176,72,113,0.08)]"
+                      className="min-h-[46px] w-full rounded-[14px] border border-border bg-white px-4 py-3 text-base text-text outline-none transition focus:border-primary focus:shadow-[0_0_0_4px_rgba(176,72,113,0.08)]"
                     />
                   </div>
 
                   <div>
-                    <label className="mb-2 block text-sm font-semibold uppercase tracking-wide text-text">
+                    <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-text">
                       Телефон для связи
                     </label>
                     <input
@@ -117,12 +117,12 @@ export default function LeadForm() {
                       onChange={handlePhoneChange}
                       placeholder="+7 (___) ___-__-__"
                       required
-                      className="min-h-[56px] w-full rounded-[16px] border border-border bg-white px-5 py-4 text-base tracking-wider text-text outline-none transition focus:border-primary focus:shadow-[0_0_0_4px_rgba(176,72,113,0.08)]"
+                      className="min-h-[46px] w-full rounded-[14px] border border-border bg-white px-4 py-3 text-base tracking-wider text-text outline-none transition focus:border-primary focus:shadow-[0_0_0_4px_rgba(176,72,113,0.08)]"
                     />
                   </div>
 
                   <div>
-                    <label className="mb-2 block text-sm font-semibold uppercase tracking-wide text-text">
+                    <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-text">
                       Выбранные даты
                     </label>
                     <input
@@ -130,19 +130,19 @@ export default function LeadForm() {
                       value={selectedDate}
                       readOnly
                       placeholder="Выберите даты в блоке выше или оставьте поле пустым"
-                      className="min-h-[56px] w-full rounded-[16px] border border-border bg-white px-5 py-4 text-base text-text outline-none"
+                      className="min-h-[46px] w-full rounded-[14px] border border-border bg-white px-4 py-3 text-base text-text outline-none"
                     />
                   </div>
 
                   <fieldset>
-                    <legend className="mb-3 block text-sm font-semibold uppercase tracking-wide text-text">
+                    <legend className="mb-2 block text-xs font-semibold uppercase tracking-wide text-text">
                       Предпочитаемый способ связи
                     </legend>
                     <div className="grid gap-3 sm:grid-cols-3">
                       {CONTACT_OPTIONS.map((option) => (
                         <label
                           key={option}
-                          className={`flex cursor-pointer items-center justify-center rounded-[16px] border px-4 py-4 text-sm font-semibold transition ${
+                          className={`flex cursor-pointer items-center justify-center rounded-[12px] border px-3 py-3 text-sm font-semibold transition ${
                             contact === option
                               ? 'border-primary bg-primary text-white'
                               : 'border-border bg-white text-text'
@@ -162,7 +162,7 @@ export default function LeadForm() {
                     </div>
                   </fieldset>
 
-                  <label className="flex items-start gap-3 rounded-[18px] bg-white px-4 py-4 text-sm leading-relaxed text-text">
+                  <label className="flex items-start gap-3 rounded-[14px] bg-white px-3 py-3 text-xs leading-relaxed text-text">
                     <input
                       type="checkbox"
                       checked={personalConsent}
@@ -184,7 +184,7 @@ export default function LeadForm() {
                     </span>
                   </label>
 
-                  <label className="flex items-start gap-3 rounded-[18px] bg-white px-4 py-4 text-sm leading-relaxed text-text">
+                  <label className="flex items-start gap-3 rounded-[14px] bg-white px-3 py-3 text-xs leading-relaxed text-text">
                     <input
                       type="checkbox"
                       checked={marketingConsent}

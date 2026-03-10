@@ -18,12 +18,12 @@ export default function FinalCTA() {
       <img
         src={BG_IMAGE}
         alt="Горы Осетии — финальный призыв забронировать тур"
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
         loading="lazy"
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-[rgba(41,11,27,0.45)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(41,11,27,0.18)_0%,rgba(41,11,27,0.52)_55%,rgba(41,11,27,0.72)_100%)]" />
 
       {/* Content */}
       <div className="relative z-10 text-center max-w-[700px] mx-auto px-6 py-20">

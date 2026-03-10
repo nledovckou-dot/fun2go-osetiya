@@ -74,13 +74,6 @@ export default function LeadForm() {
 
               <div className="mt-8 flex flex-col gap-3 sm:max-w-[360px]">
                 <a
-                  href="tel:+79011328656"
-                  className="flex items-center gap-3 rounded-full bg-primary-light px-5 py-3 text-sm font-semibold text-text no-underline transition-all hover:bg-primary-medium"
-                >
-                  <PhoneCall size={16} className="text-primary" />
-                  +7 901 132 86 56
-                </a>
-                <a
                   href="https://t.me/managerf2g"
                   target="_blank"
                   rel="noopener noreferrer"

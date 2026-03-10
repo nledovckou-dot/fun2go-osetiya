@@ -60,14 +60,6 @@ export default function Footer() {
 
           <div className="space-y-4">
             <a
-              href="tel:+79011328656"
-              className="inline-flex items-center gap-3 text-[24px] font-semibold text-text-on-dark no-underline transition-colors hover:text-accent md:text-[32px]"
-            >
-              <Phone size={24} />
-              +7 901 132 86 56
-            </a>
-            <br />
-            <a
               href="mailto:info@fun2go.ru"
               className="inline-flex items-center gap-3 text-[24px] font-semibold text-text-on-dark no-underline transition-colors hover:text-accent md:text-[32px]"
             >

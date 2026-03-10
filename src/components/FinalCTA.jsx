@@ -63,12 +63,6 @@ export default function FinalCTA() {
                 </span>
               </span>
             </a>
-            <a
-              href="tel:+79011328656"
-              className="text-base text-text-on-dark-muted hover:underline no-underline"
-            >
-              +7 901 132 86 56
-            </a>
           </div>
         </FadeInUp>
       </div>

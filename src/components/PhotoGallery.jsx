@@ -37,9 +37,6 @@ const GALLERY_SOURCES = [
   'https://static.tildacdn.com/tild3838-6335-4164-b965-333736343764/IMG_2774.JPG',
   'https://static.tildacdn.com/tild3436-6637-4335-a632-396335313564/1667574931_77-sporti.jpg',
   'https://static.tildacdn.com/tild6132-3933-4061-a531-613334653361/photo-output_1_1.JPG',
-  'https://static.tildacdn.com/tild6138-3538-4964-b531-623835346532/IMG_0378.JPG',
-  'https://static.tildacdn.com/tild6136-6335-4336-b031-343137656135/IMG_0678.png',
-  'https://static.tildacdn.com/tild3065-3362-4165-a365-366637346233/IMG_1025_1.JPG',
 ]
 
 const GALLERY_IMAGES = GALLERY_SOURCES.map((src, index) => ({

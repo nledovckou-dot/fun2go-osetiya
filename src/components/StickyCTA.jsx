@@ -13,8 +13,7 @@ export default function StickyCTA() {
       // Show after scrolling past hero
       const pastHero = scrollY > viewportHeight
 
-      // Hide when booking section is in view
-      const bookingEl = document.querySelector('#booking')
+      const bookingEl = document.querySelector('#lead-form')
       let inBookingZone = false
       if (bookingEl) {
         const rect = bookingEl.getBoundingClientRect()
@@ -29,7 +28,7 @@ export default function StickyCTA() {
   }, [])
 
   const handleClick = () => {
-    const el = document.querySelector('#booking')
+    const el = document.querySelector('#lead-form')
     if (el) el.scrollIntoView({ behavior: 'smooth' })
   }
 
@@ -46,10 +45,10 @@ export default function StickyCTA() {
         >
           <div className="flex items-center justify-between gap-3 px-6 py-3 bg-[rgba(255,250,239,0.95)] backdrop-blur-[12px] border-t border-border shadow-[0_-2px_20px_rgba(41,11,27,0.05)]">
             <span className="text-sm text-text-light whitespace-nowrap">
-              79 900 руб. · 5 дней · 12 мест
+              от 49 500 руб. · 3 и 5 дней · до 12 мест
             </span>
             <Button variant="stickySmall" onClick={handleClick}>
-              Забронировать
+              Оставить заявку
             </Button>
           </div>
         </motion.div>

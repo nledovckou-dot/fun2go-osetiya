@@ -6,13 +6,11 @@ import ForWhom from './components/ForWhom'
 import Impressions from './components/Impressions'
 import Program from './components/Program'
 import WhyUs from './components/WhyUs'
-import Hotels from './components/Hotels'
 import Included from './components/Included'
 import Booking from './components/Booking'
-import Team from './components/Team'
 import Reviews from './components/Reviews'
-import FAQ from './components/FAQ'
 import FinalCTA from './components/FinalCTA'
+import LeadForm from './components/LeadForm'
 import Footer from './components/Footer'
 import StickyCTA from './components/StickyCTA'
 
@@ -79,13 +77,11 @@ export default function App() {
         <Impressions />
         <Program />
         <WhyUs />
-        <Hotels />
         <Included />
         <Booking />
-        <Team />
         <Reviews />
-        <FAQ />
         <FinalCTA />
+        <LeadForm />
       </main>
 
       <Footer />

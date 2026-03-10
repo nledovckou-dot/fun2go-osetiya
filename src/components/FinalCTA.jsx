@@ -7,7 +7,7 @@ const BG_IMAGE = 'https://static.tildacdn.com/tild6536-6132-4062-b839-3864623537
 export default function FinalCTA() {
   const handleBookingClick = (e) => {
     e.preventDefault()
-    const el = document.querySelector('#booking')
+    const el = document.querySelector('#lead-form')
     if (el) el.scrollIntoView({ behavior: 'smooth' })
   }
 
@@ -28,19 +28,19 @@ export default function FinalCTA() {
       <div className="relative z-10 text-center max-w-[700px] mx-auto px-6 py-20">
         <FadeInUp>
           <h2 className="font-heading font-bold text-[28px] md:text-[48px] text-text-on-dark mb-6 tracking-tight leading-tight">
-            Через месяц ты будешь сидеть на парящей лавочке на высоте 2560 метров. Или на рабочем стуле. Выбирай.
+            Сидеть на парящей лавочке на высоте 2560 метров или на рабочем стуле? Выбирайте.
           </h2>
         </FadeInUp>
 
         <FadeInUp delay={0.2}>
           <p className="text-text-on-dark-muted text-base md:text-[17px] leading-relaxed mb-10 max-w-[600px] mx-auto">
-            Жизнь слишком коротка, чтобы откладывать перезагрузку на потом. 12 мест. 5 дней. Осетия + закрытая Ингушетия. Всё продумано — осталось только нажать.
+            Жизнь слишком коротка, чтобы откладывать перезагрузку на потом. 12 мест. 5 дней. Осетия + Ингушетия. Всё продумано - осталось только забронировать.
           </p>
         </FadeInUp>
 
         <FadeInUp delay={0.4}>
           <Button variant="onDark" onClick={handleBookingClick}>
-            Забронировать место
+            Оставить заявку
           </Button>
 
           <div className="mt-6 space-y-2">

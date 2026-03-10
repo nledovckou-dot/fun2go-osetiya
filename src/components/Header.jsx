@@ -4,10 +4,10 @@ import { Menu, X } from 'lucide-react'
 import { Button } from './ui/Button'
 
 const NAV_ITEMS = [
-  { label: 'Маршрут', href: '#highlights' },
+  { label: 'О туре', href: '#about' },
   { label: 'Программа', href: '#program' },
-  { label: 'Отели', href: '#hotels' },
-  { label: 'Цена', href: '#booking' },
+  { label: 'Фото', href: '#highlights' },
+  { label: 'Что включено', href: '#included' },
   { label: 'Отзывы', href: '#reviews' },
 ]
 
@@ -49,7 +49,6 @@ export default function Header() {
     >
       <div className="max-w-container mx-auto px-6 md:px-10 lg:px-12">
         <nav className="flex items-center justify-between h-[72px]">
-          {/* Logo */}
           <a href="#" className="shrink-0">
             <img
               src="https://static.tildacdn.com/tild6265-3533-4936-b031-616437356530/logo_footer.svg"
@@ -58,36 +57,34 @@ export default function Header() {
             />
           </a>
 
-          {/* Desktop nav */}
-          <ul className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-2 rounded-full border border-white/20 px-3 py-2 backdrop-blur-[12px]">
             {NAV_ITEMS.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  className={`font-heading font-medium text-[15px] transition-colors duration-200 hover:text-primary no-underline ${
-                    scrolled ? 'text-text' : 'text-text-on-dark'
-                  }`}
-                >
-                  {item.label}
-                </a>
-              </li>
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
+                className={`rounded-full px-3 py-2 font-heading text-[13px] font-semibold uppercase tracking-wide no-underline transition-colors ${
+                  scrolled
+                    ? 'text-text hover:bg-primary-light'
+                    : 'text-text-on-dark hover:bg-white/10'
+                }`}
+              >
+                {item.label}
+              </a>
             ))}
-          </ul>
+          </div>
 
-          {/* Desktop CTA */}
-          <div className="hidden lg:block">
+          <div className="hidden md:block">
             <a
-              href="#booking"
-              onClick={(e) => handleNavClick(e, '#booking')}
+              href="#lead-form"
+              onClick={(e) => handleNavClick(e, '#lead-form')}
             >
               <Button variant="primary" className="!py-3 !px-6 !min-h-[44px] !min-w-0 !text-sm">
-                Забронировать
+                Оставить заявку
               </Button>
             </a>
           </div>
 
-          {/* Mobile burger */}
           <button
             className="lg:hidden p-2 -mr-2 min-w-[48px] min-h-[48px] flex items-center justify-center"
             onClick={() => setMobileOpen(true)}
@@ -98,7 +95,6 @@ export default function Header() {
         </nav>
       </div>
 
-      {/* Mobile fullscreen menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -137,9 +133,9 @@ export default function Header() {
             </div>
 
             <div className="px-6 pb-8 pb-[calc(2rem+env(safe-area-inset-bottom))]">
-              <a href="#booking" onClick={(e) => handleNavClick(e, '#booking')}>
+              <a href="#lead-form" onClick={(e) => handleNavClick(e, '#lead-form')}>
                 <Button variant="primary" fullWidth>
-                  Забронировать
+                  Оставить заявку
                 </Button>
               </a>
             </div>

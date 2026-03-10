@@ -1,73 +1,119 @@
-import { Check, X } from 'lucide-react'
+import { ArrowUpRight, Check, Plane, Wallet, UtensilsCrossed } from 'lucide-react'
 import { FadeInUp } from './ui/AnimatedSection'
 
 const INCLUDED = [
-  'Проживание в горном SPA-отеле и городском отеле 9.2-9.8',
-  'Европейские завтраки каждый день',
-  'Транспорт по маршруту — внедорожник, доедем туда, куда такси не повезёт',
-  'Приветственный обед и дружеский ужин',
-  'Обед в осетинской семье в Дигории',
-  'Пикник в Ингушетии — вино, чай, чурчхела, пироги',
-  'Конная прогулка в горах',
-  'Мастер-класс осетинских пирогов — увезёшь рецепт домой',
-  'Вода каждый день',
-  'Встреча и трансфер аэропорт / вокзал',
-  'Организатор 24/7 — тебе не нужно думать ни о чём',
-  'Гид по всем локациям',
-  'Подарки и сюрпризы — не скажем какие, но будет приятно',
+  '2-местное проживание',
+  'Вкусные европейские завтраки',
+  'Индивидуальный трансфер в аэропорт',
+  'Внедорожник с водителем по указанному в программе маршруту',
+  'Приветственный обед и ужин',
+  'Обед в Дигории',
+  'Входные билеты и экскурсии в указанные в программе места',
+  'Пикник-обед в Ингушетии с вином и горными чаями (5 дней)',
+  'Подарки и маленькие сюрпризы от компании',
+  'Вода каждый день по маршруту',
+  'Конная прогулка',
+  'Мастер-класс по приготовлению осетинских пирогов (5 дней)',
+  'Встреча в аэропорту или на ж/д вокзале',
+  'Сопровождение организаторами тура 24/7',
 ]
 
 const EXCLUDED = [
-  'Авиабилеты — подскажем лучшие рейсы',
-  'Обеды и ужины вне программы — порекомендуем проверенные места',
-  'Входные билеты в локации — обычно 100-300 руб.',
+  'Обеды и ужины',
   'Личные расходы',
+  'Чаевые водителям и гидам',
+  'Авиаперелёты',
 ]
 
 export default function Included() {
   return (
-    <section className="bg-white py-10 md:py-[72px]">
+    <section id="included" className="bg-white py-10 md:py-[72px]">
       <div className="max-w-container mx-auto px-6 md:px-10 lg:px-12">
-        <FadeInUp>
-          <h2 className="font-heading font-bold text-[32px] md:text-[48px] text-text text-center mb-4 tracking-tight leading-tight">
-            Что входит в 79 900 руб.
-          </h2>
-          <p className="text-text-light text-base md:text-[17px] text-center mb-10 md:mb-14 max-w-text mx-auto">
-            Конная прогулка, мастер-класс пирогов, пикник с вином, SPA-отель — да, это всё уже в цене.
-          </p>
-        </FadeInUp>
+        <div className="overflow-hidden rounded-[32px] bg-[url('https://static.tildacdn.com/tild3266-3537-4965-a162-353764356233/322.jpg')] bg-cover bg-center p-4 md:p-6">
+          <div className="grid gap-4 lg:grid-cols-[280px_1fr]">
+            <FadeInUp>
+              <div className="rounded-[28px] bg-primary p-8 text-text-on-dark">
+                <img
+                  src="https://static.tildacdn.com/tild6265-3533-4936-b031-616437356530/logo_footer.svg"
+                  alt="Fun2Go"
+                  className="mb-10 h-8 w-auto brightness-0 invert"
+                />
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/70">
+                  Стоимость тура
+                </p>
+                <div className="mt-8 space-y-8">
+                  <div>
+                    <p className="font-heading text-5xl font-bold text-accent">49 500 ₽</p>
+                    <p className="mt-2 text-lg font-semibold uppercase tracking-wide">3-дневный тур</p>
+                  </div>
+                  <div>
+                    <p className="font-heading text-5xl font-bold text-accent">84 900 ₽</p>
+                    <p className="mt-2 text-lg font-semibold uppercase tracking-wide">5-дневный тур</p>
+                  </div>
+                </div>
+                <div className="mt-12 flex items-center justify-between gap-4">
+                  <p className="max-w-[150px] text-sm font-semibold leading-relaxed text-white/80">
+                    *бронирование по предоплате 30 %
+                  </p>
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full border border-white/25">
+                    <ArrowUpRight className="text-accent" size={30} strokeWidth={1.8} />
+                  </div>
+                </div>
+              </div>
+            </FadeInUp>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
-          {/* Included */}
-          <div className="lg:col-span-3 bg-bg-warm rounded-[20px] p-8 md:p-10">
-            <h3 className="font-heading font-semibold text-xl md:text-2xl text-text mb-6">
-              Включено
-            </h3>
-            <ul className="space-y-3">
-              {INCLUDED.map((item, i) => (
-                <FadeInUp key={i} delay={i * 0.05}>
-                  <li className="flex items-start gap-3 text-text text-base md:text-[17px] leading-relaxed">
-                    <Check size={20} className="text-primary shrink-0 mt-1" strokeWidth={2.5} />
-                    <span>{item}</span>
-                  </li>
-                </FadeInUp>
-              ))}
-            </ul>
-          </div>
+            <div className="rounded-[28px] bg-white/95 p-8 shadow-lg-ds backdrop-blur-[6px] md:p-10">
+              <div className="grid gap-10 lg:grid-cols-[1fr_280px]">
+                <div>
+                  <FadeInUp>
+                    <h2 className="font-heading text-[32px] font-bold uppercase tracking-tight text-text md:text-[42px]">
+                      Включено в стоимость:
+                    </h2>
+                  </FadeInUp>
 
-          {/* Excluded */}
-          <div className="lg:col-span-2">
-            <h3 className="font-heading font-semibold text-lg md:text-xl text-text-light mb-6">
-              Не включено
-            </h3>
-            <ul className="space-y-3">
-              {EXCLUDED.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-text-muted text-sm leading-relaxed">
-                  <X size={18} className="text-muted shrink-0 mt-0.5" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+                  <div className="mt-8 grid gap-x-10 gap-y-3 md:grid-cols-2">
+                    {INCLUDED.map((item, i) => (
+                      <FadeInUp key={item} delay={i * 0.03}>
+                        <div className="flex items-start gap-3 text-base leading-relaxed text-text md:text-[17px]">
+                          <Check size={18} className="mt-1 shrink-0 text-primary" strokeWidth={2.8} />
+                          <span>{item}</span>
+                        </div>
+                      </FadeInUp>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <FadeInUp delay={0.2}>
+                    <h3 className="font-heading text-[28px] font-bold uppercase tracking-tight text-text md:text-[32px]">
+                      Не входит в стоимость:
+                    </h3>
+                  </FadeInUp>
+
+                  <div className="mt-8 space-y-4">
+                    {EXCLUDED.map((item, i) => (
+                      <FadeInUp key={item} delay={0.25 + i * 0.04}>
+                        <div className="flex items-start gap-3 text-base leading-relaxed text-text md:text-[17px]">
+                          {i === 0 && <UtensilsCrossed size={18} className="mt-1 shrink-0 text-primary" />}
+                          {i === 1 && <Wallet size={18} className="mt-1 shrink-0 text-primary" />}
+                          {i === 2 && <Check size={18} className="mt-1 shrink-0 text-primary" strokeWidth={2.8} />}
+                          {i === 3 && <Plane size={18} className="mt-1 shrink-0 text-primary" />}
+                          <span>{item}</span>
+                        </div>
+                      </FadeInUp>
+                    ))}
+                  </div>
+
+                  <FadeInUp delay={0.45}>
+                    <div className="mt-8 rounded-[24px] bg-bg-warm p-5">
+                      <p className="text-base font-semibold text-primary md:text-[17px]">
+                        Но мы поможем в подборе рейса!
+                      </p>
+                    </div>
+                  </FadeInUp>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

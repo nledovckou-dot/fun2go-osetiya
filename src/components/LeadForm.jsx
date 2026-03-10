@@ -65,12 +65,6 @@ export default function LeadForm() {
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
                 Ваше путешествие начинается здесь
               </p>
-              <h2 className="mt-4 font-heading text-[36px] font-bold leading-tight text-text md:text-[56px]">
-                Оставьте контакты — мы пришлём программу тура и ответим на все вопросы
-              </h2>
-              <p className="mt-5 max-w-[540px] text-base leading-relaxed text-text-light md:text-[17px]">
-                Финальный блок и форма собраны по логике основного сайта: удобный способ связи, юридические согласия и быстрый переход в диалог с менеджером.
-              </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:max-w-[360px]">
                 <a

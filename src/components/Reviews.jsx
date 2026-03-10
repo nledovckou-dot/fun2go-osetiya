@@ -63,25 +63,6 @@ export default function Reviews() {
           <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={19} />
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="mt-8 text-center"
-        >
-          <a
-            href="https://fun2go.ru/tur_v_osetiyu_3_5_dnej"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-medium text-text-muted no-underline transition-colors hover:text-primary"
-          >
-            Все отзывы на fun2go.ru
-            <svg viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5">
-              <path d="M6 3h7v7M13 3L3 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
-        </motion.div>
       </div>
     </section>
   )

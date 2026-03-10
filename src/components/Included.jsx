@@ -28,36 +28,36 @@ const EXCLUDED = [
 export default function Included() {
   return (
     <section id="included" className="bg-white py-10 md:py-[72px]">
-      <div className="max-w-container mx-auto px-6 md:px-10 lg:px-12">
-        <div className="overflow-hidden rounded-[32px] bg-[url('https://static.tildacdn.com/tild3266-3537-4965-a162-353764356233/322.jpg')] bg-cover bg-center p-4 md:p-6">
-          <div className="grid gap-4 lg:grid-cols-[280px_1fr]">
+      <div className="max-w-container mx-auto px-4 md:px-10 lg:px-12">
+        <div className="overflow-hidden rounded-[20px] md:rounded-[32px] md:bg-[url('https://static.tildacdn.com/tild3266-3537-4965-a162-353764356233/322.jpg')] bg-cover bg-center p-0 md:p-6">
+          <div className="grid gap-3 md:gap-4 lg:grid-cols-[280px_1fr]">
             <FadeInUp>
-              <div className="rounded-[28px] bg-primary p-8 text-text-on-dark">
+              <div className="rounded-[20px] md:rounded-[28px] bg-primary p-6 md:p-8 text-text-on-dark">
                 <img
                   src="https://static.tildacdn.com/tild6265-3533-4936-b031-616437356530/logo_footer.svg"
                   alt="Fun2Go"
-                  className="mb-10 h-8 w-auto brightness-0 invert"
+                  className="mb-6 md:mb-10 h-8 w-auto brightness-0 invert"
                 />
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/70">
                   Стоимость тура
                 </p>
-                <div className="mt-8 space-y-8">
+                <div className="mt-4 md:mt-8 flex gap-6 md:block md:space-y-8">
                   <div>
-                    <p className="inline-flex items-start gap-2 whitespace-nowrap font-heading text-[44px] font-bold leading-none text-accent sm:text-5xl">
+                    <p className="inline-flex items-start gap-1 whitespace-nowrap font-heading text-[32px] md:text-[44px] font-bold leading-none text-accent sm:text-5xl">
                       <span>49 500</span>
                       <span className="translate-y-[2px] text-[0.72em]">₽</span>
                     </p>
-                    <p className="mt-2 text-lg font-semibold uppercase tracking-wide">3-дневный тур</p>
+                    <p className="mt-1 md:mt-2 text-sm md:text-lg font-semibold uppercase tracking-wide">3-дневный тур</p>
                   </div>
                   <div>
-                    <p className="inline-flex items-start gap-2 whitespace-nowrap font-heading text-[44px] font-bold leading-none text-accent sm:text-5xl">
+                    <p className="inline-flex items-start gap-1 whitespace-nowrap font-heading text-[32px] md:text-[44px] font-bold leading-none text-accent sm:text-5xl">
                       <span>84 900</span>
                       <span className="translate-y-[2px] text-[0.72em]">₽</span>
                     </p>
-                    <p className="mt-2 text-lg font-semibold uppercase tracking-wide">5-дневный тур</p>
+                    <p className="mt-1 md:mt-2 text-sm md:text-lg font-semibold uppercase tracking-wide">5-дневный тур</p>
                   </div>
                 </div>
-                <div className="mt-12 flex items-center justify-between gap-4">
+                <div className="mt-6 md:mt-12 flex items-center justify-between gap-4">
                   <p className="max-w-[150px] text-sm font-semibold leading-relaxed text-white/80">
                     *бронирование по предоплате 30 %
                   </p>
@@ -68,11 +68,11 @@ export default function Included() {
               </div>
             </FadeInUp>
 
-            <div className="rounded-[28px] bg-white/95 p-8 shadow-lg-ds backdrop-blur-[6px] md:p-10">
-              <div className="grid gap-10 lg:grid-cols-[1fr_280px]">
+            <div className="rounded-[20px] md:rounded-[28px] bg-white/95 p-4 md:p-10 shadow-lg-ds backdrop-blur-[6px]">
+              <div className="grid gap-8 md:gap-10 lg:grid-cols-[1fr_280px]">
                 <div>
                   <FadeInUp>
-                    <h2 className="font-heading text-[32px] font-bold uppercase tracking-tight text-text md:text-[42px]">
+                    <h2 className="font-heading text-[24px] md:text-[42px] font-bold uppercase tracking-tight text-text">
                       Включено в стоимость:
                     </h2>
                   </FadeInUp>

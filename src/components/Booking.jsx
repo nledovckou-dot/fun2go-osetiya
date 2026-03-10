@@ -36,7 +36,7 @@ export default function Booking() {
           ))}
         </div>
 
-        <div className="flex md:hidden gap-4 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-4 -mx-6 px-6 mb-8">
+        <div className="flex md:hidden gap-4 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-4 mb-8">
           {DATES.map((date) => (
             <div key={date.dates} className="min-w-[260px] snap-start shrink-0">
               <DateCard date={date} onBook={() => handleBook(date.dates)} />

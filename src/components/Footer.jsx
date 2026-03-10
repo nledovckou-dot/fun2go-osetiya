@@ -27,13 +27,13 @@ export default function Footer() {
     <footer className="bg-primary py-14 text-text-on-dark md:py-16">
       <div className="max-w-container mx-auto px-6 md:px-10 lg:px-12">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-          <div className="flex flex-wrap items-center gap-3 rounded-full border border-white/55 px-4 py-3">
+          <div className="flex flex-wrap items-center gap-2 md:gap-3 rounded-[20px] md:rounded-full border border-white/55 px-3 py-2 md:px-4 md:py-3">
             {FOOTER_LINKS.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className="rounded-full px-3 py-2 text-xs font-semibold uppercase tracking-wide text-white no-underline transition-colors hover:bg-white/10 md:text-[13px]"
+                className="rounded-full px-2.5 py-1.5 md:px-3 md:py-2 text-[11px] md:text-[13px] font-semibold uppercase tracking-wide text-white no-underline transition-colors hover:bg-white/10"
               >
                 {link.label}
               </a>
@@ -64,8 +64,8 @@ export default function Footer() {
               href="mailto:info@fun2go.ru"
               className="inline-flex items-center gap-3 text-[24px] font-semibold text-text-on-dark no-underline transition-colors hover:text-accent md:text-[32px]"
             >
-              <Mail size={24} />
-              info@fun2go.ru
+              <Mail size={24} className="shrink-0" />
+              <span className="break-all">info@fun2go.ru</span>
             </a>
           </div>
 

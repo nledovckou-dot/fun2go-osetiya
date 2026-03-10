@@ -160,34 +160,15 @@ export default function PhotoGallery() {
       <div className="max-w-container mx-auto px-6 md:px-10 lg:px-12">
         <div className="overflow-hidden rounded-[30px] border border-white/40 bg-[linear-gradient(180deg,rgba(255,255,255,0.65),rgba(255,249,236,0.88))] p-5 shadow-lg-ds backdrop-blur-xl md:rounded-[38px] md:p-8">
           <FadeInUp>
-            <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(300px,0.72fr)] lg:items-end">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
-                  Фотогалерея тура
-                </p>
-                <h2 className="mt-3 max-w-[920px] font-heading text-[32px] font-bold leading-[0.94] tracking-tight text-text md:text-[56px]">
-                  Живая визуальная лента с основного лендинга, а не просто несколько случайных кадров
-                </h2>
-                <p className="mt-4 max-w-[760px] text-base leading-relaxed text-text-light md:text-[17px]">
-                  Собрал все ключевые фото с оригинальной страницы Fun2Go и упаковал их в более сильную галерею: с крупным первым кадром, кликом по фото и полноценным просмотром на mobile и desktop.
-                </p>
-              </div>
-
-              <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-                <div className="rounded-[24px] border border-white/50 bg-white/70 px-5 py-4 shadow-sm-ds">
-                  <div className="font-heading text-[30px] font-bold leading-none text-text">36</div>
-                  <div className="mt-2 text-sm leading-snug text-text-light">кадров с основной страницы Fun2Go</div>
-                </div>
-                <div className="rounded-[24px] border border-white/50 bg-white/70 px-5 py-4 shadow-sm-ds">
-                  <div className="font-heading text-[30px] font-bold leading-none text-text">lightbox</div>
-                  <div className="mt-2 text-sm leading-snug text-text-light">открытие фото по клику, стрелки и быстрый выбор</div>
-                </div>
-                <div className="rounded-[24px] border border-white/50 bg-white/70 px-5 py-4 shadow-sm-ds">
-                  <div className="font-heading text-[30px] font-bold leading-none text-text">mobile first</div>
-                  <div className="mt-2 text-sm leading-snug text-text-light">сетка не разваливается и не выглядит как бесконечная лапша</div>
-                </div>
-              </div>
-            </div>
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
+              Фото из туров
+            </p>
+            <h2 className="mt-3 max-w-[800px] font-heading text-[32px] font-bold leading-[0.94] tracking-tight text-text md:text-[56px]">
+              Как это выглядит вживую
+            </h2>
+            <p className="mt-4 max-w-[600px] text-base leading-relaxed text-text-light md:text-[17px]">
+              Горы, башни, термальные источники, осетинские застолья и та самая атмосфера беззаботного тура — всё настоящее, снято участниками и гидами.
+            </p>
           </FadeInUp>
 
           <div className="mt-8 grid gap-4 xl:grid-cols-[minmax(0,1.35fr)_360px]">
@@ -219,14 +200,11 @@ export default function PhotoGallery() {
                 </div>
 
                 <div className="max-w-[560px]">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/70">
-                    Кликни на фото и листай всю подборку
-                  </p>
-                  <h3 className="mt-3 font-heading text-[30px] font-bold leading-[0.96] tracking-tight text-white md:text-[48px]">
-                    Визуально этот блок теперь дышит как полноценная промо-галерея, а не как случайная сетка картинок
+                  <h3 className="font-heading text-[30px] font-bold leading-[0.96] tracking-tight text-white md:text-[48px]">
+                    Горы, от которых перехватывает дыхание
                   </h3>
                   <p className="mt-4 max-w-[480px] text-sm leading-relaxed text-white/75 md:text-base">
-                    Вверху оставил один большой эмоциональный кадр, справа собрал хайлайты, ниже вывел полную фотоленту с оригинального лендинга.
+                    Каждый тур — это новые виды, новые люди и новые истории. Кликни на любое фото, чтобы рассмотреть ближе.
                   </p>
                 </div>
               </div>
@@ -265,22 +243,6 @@ export default function PhotoGallery() {
             </div>
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-2">
-            {[
-              'Фото взяты с основной страницы fun2go.ru',
-              'Открытие по клику без сторонних библиотек',
-              'Сильнее первый экран секции',
-              'Адаптивная сетка под mobile',
-            ].map((item) => (
-              <span
-                key={item}
-                className="rounded-full border border-primary/10 bg-primary-light px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.12em] text-primary"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-
           <div className="mt-8 grid grid-cols-2 gap-4 md:auto-rows-[140px] md:grid-cols-4 lg:auto-rows-[150px] lg:grid-cols-6">
             {galleryGridImages.map((image, index) => (
               <motion.button
@@ -301,10 +263,7 @@ export default function PhotoGallery() {
                     loading="lazy"
                   />
                 </div>
-                <div className="pointer-events-none absolute inset-x-5 top-5 flex items-center justify-between">
-                  <span className="rounded-full border border-white/20 bg-[rgba(25,8,18,0.52)] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white">
-                    кадр {index + 5}
-                  </span>
+                <div className="pointer-events-none absolute right-5 top-5">
                   <span className="rounded-full border border-white/20 bg-[rgba(25,8,18,0.52)] p-2 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                     <Expand size={14} />
                   </span>
@@ -374,14 +333,11 @@ export default function PhotoGallery() {
                   <div className="flex flex-col justify-between rounded-[28px] border border-white/10 bg-[rgba(255,255,255,0.08)] p-4 text-white md:p-5">
                     <div>
                       <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/55">
-                        Оригинальный кадр Fun2Go
+                        {selectedIndex + 1} из {GALLERY_IMAGES.length}
                       </p>
                       <h3 className="mt-3 font-heading text-[28px] font-bold leading-[0.96] tracking-tight md:text-[34px]">
                         {getCaption(selectedIndex)}
                       </h3>
-                      <p className="mt-4 text-sm leading-relaxed text-white/72">
-                        Галерея листается стрелками на клавиатуре, кнопками внутри окна и прямым кликом по миниатюрам ниже. На mobile это тоже работает без отдельной страницы.
-                      </p>
                     </div>
 
                     <div className="mt-6">

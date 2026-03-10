@@ -9,6 +9,7 @@ import Program from './components/Program'
 import WhyUs from './components/WhyUs'
 import Included from './components/Included'
 import Booking from './components/Booking'
+import Reviews from './components/Reviews'
 import FinalCTA from './components/FinalCTA'
 import LeadForm from './components/LeadForm'
 import Footer from './components/Footer'
@@ -76,6 +77,7 @@ export default function App() {
         <ForWhom />
         <Impressions />
         <PhotoGallery />
+        <Reviews />
         <Program />
         <WhyUs />
         <Included />

@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { label: 'О туре', href: '#about' },
   { label: 'Программа', href: '#program' },
   { label: 'Фото', href: '#gallery' },
+  { label: 'Отзывы', href: '#reviews' },
   { label: 'Что включено', href: '#included' },
 ]
 

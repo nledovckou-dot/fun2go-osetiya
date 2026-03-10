@@ -72,15 +72,23 @@ export default function LeadForm() {
                 Финальный блок и форма собраны по логике основного сайта: удобный способ связи, юридические согласия и быстрый переход в диалог с менеджером.
               </p>
 
-              <div className="mt-8 space-y-4">
-                <div className="inline-flex items-center gap-3 rounded-full bg-primary-light px-5 py-3 text-sm font-semibold text-text">
+              <div className="mt-8 flex flex-col gap-3 sm:max-w-[360px]">
+                <a
+                  href="tel:+79011328656"
+                  className="flex items-center gap-3 rounded-full bg-primary-light px-5 py-3 text-sm font-semibold text-text no-underline transition-all hover:bg-primary-medium"
+                >
                   <PhoneCall size={16} className="text-primary" />
                   +7 901 132 86 56
-                </div>
-                <div className="inline-flex items-center gap-3 rounded-full bg-primary-light px-5 py-3 text-sm font-semibold text-text">
+                </a>
+                <a
+                  href="https://t.me/managerf2g"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 rounded-full bg-primary-light px-5 py-3 text-sm font-semibold text-text no-underline transition-all hover:bg-primary-medium"
+                >
                   <Send size={16} className="text-primary" />
                   Telegram: @managerf2g
-                </div>
+                </a>
               </div>
             </div>
           </FadeInUp>

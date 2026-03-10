@@ -25,7 +25,7 @@ export default function Reviews() {
     <section id="reviews" className="bg-primary py-14 md:py-24">
       <div className="max-w-container mx-auto px-6 md:px-10 lg:px-12">
         <FadeInUp>
-          <h2 className="font-heading font-bold uppercase text-[42px] leading-none tracking-tight text-text-on-dark md:text-[72px]">
+          <h2 className="max-w-[320px] font-heading font-bold uppercase text-[26px] leading-[0.94] tracking-[-0.03em] text-text-on-dark sm:max-w-none sm:text-[42px] sm:tracking-tight md:text-[72px]">
             Отзывы наших
             <br />
             путешественников

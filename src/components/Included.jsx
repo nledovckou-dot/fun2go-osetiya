@@ -43,11 +43,17 @@ export default function Included() {
                 </p>
                 <div className="mt-8 space-y-8">
                   <div>
-                    <p className="font-heading text-5xl font-bold text-accent">49 500 ₽</p>
+                    <p className="inline-flex items-start gap-2 whitespace-nowrap font-heading text-[44px] font-bold leading-none text-accent sm:text-5xl">
+                      <span>49 500</span>
+                      <span className="translate-y-[2px] text-[0.72em]">₽</span>
+                    </p>
                     <p className="mt-2 text-lg font-semibold uppercase tracking-wide">3-дневный тур</p>
                   </div>
                   <div>
-                    <p className="font-heading text-5xl font-bold text-accent">84 900 ₽</p>
+                    <p className="inline-flex items-start gap-2 whitespace-nowrap font-heading text-[44px] font-bold leading-none text-accent sm:text-5xl">
+                      <span>84 900</span>
+                      <span className="translate-y-[2px] text-[0.72em]">₽</span>
+                    </p>
                     <p className="mt-2 text-lg font-semibold uppercase tracking-wide">5-дневный тур</p>
                   </div>
                 </div>

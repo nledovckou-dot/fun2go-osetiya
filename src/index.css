@@ -103,6 +103,30 @@ img {
   scrollbar-width: none;
 }
 
+@keyframes gallery-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.gallery-float-0 {
+  animation: gallery-float 9s ease-in-out infinite;
+}
+
+.gallery-float-1 {
+  animation: gallery-float 11s ease-in-out infinite;
+  animation-delay: 0.8s;
+}
+
+.gallery-float-2 {
+  animation: gallery-float 10s ease-in-out infinite;
+  animation-delay: 1.6s;
+}
+
 /* Phone input mask */
 input[type="tel"] {
   letter-spacing: 0.05em;

@@ -6,7 +6,7 @@ import { Button } from './ui/Button'
 const NAV_ITEMS = [
   { label: 'О туре', href: '#about' },
   { label: 'Программа', href: '#program' },
-  { label: 'Фото', href: '#highlights' },
+  { label: 'Фото', href: '#gallery' },
   { label: 'Что включено', href: '#included' },
   { label: 'Отзывы', href: '#reviews' },
 ]

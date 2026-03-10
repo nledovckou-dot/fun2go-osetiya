@@ -4,7 +4,7 @@ const FOOTER_LINKS = [
   { label: 'На главную', href: '#about' },
   { label: 'О туре', href: '#highlights' },
   { label: 'Программа', href: '#program' },
-  { label: 'Фото', href: '#highlights' },
+  { label: 'Фото', href: '#gallery' },
   { label: 'Отзывы', href: '#reviews' },
   { label: 'Что включено?', href: '#included' },
 ]

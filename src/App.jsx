@@ -4,6 +4,7 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import ForWhom from './components/ForWhom'
 import Impressions from './components/Impressions'
+import PhotoGallery from './components/PhotoGallery'
 import Program from './components/Program'
 import WhyUs from './components/WhyUs'
 import Included from './components/Included'
@@ -75,6 +76,7 @@ export default function App() {
         <Hero />
         <ForWhom />
         <Impressions />
+        <PhotoGallery />
         <Program />
         <WhyUs />
         <Included />

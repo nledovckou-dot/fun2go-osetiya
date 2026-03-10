@@ -1,3 +1,4 @@
+import { Send } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { FadeInUp } from './ui/AnimatedSection'
 import { Button } from './ui/Button'
@@ -43,18 +44,28 @@ export default function FinalCTA() {
             Оставить заявку
           </Button>
 
-          <div className="mt-6 space-y-2">
+          <div className="mt-6 flex flex-col items-center gap-3">
             <a
               href="https://t.me/managerf2g"
               target="_blank"
               rel="noopener noreferrer"
-              className="block text-text-on-dark font-medium text-base hover:underline no-underline"
+              className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-text-on-dark no-underline transition-all hover:bg-white/15"
             >
-              Написать в Telegram — @managerf2g
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-primary">
+                <Send size={18} />
+              </span>
+              <span className="text-left">
+                <span className="block text-[11px] font-semibold uppercase tracking-[0.18em] text-white/65">
+                  Telegram
+                </span>
+                <span className="block text-base font-semibold">
+                  @managerf2g
+                </span>
+              </span>
             </a>
             <a
               href="tel:+79011328656"
-              className="block text-text-on-dark-muted text-base hover:underline no-underline"
+              className="text-base text-text-on-dark-muted hover:underline no-underline"
             >
               +7 901 132 86 56
             </a>

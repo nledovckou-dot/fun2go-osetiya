@@ -59,19 +59,19 @@ export default function LeadForm() {
   return (
     <section id="lead-form" className="bg-white py-10 md:py-16">
       <div className="max-w-container mx-auto px-6 md:px-10 lg:px-12">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        <div className="mx-auto max-w-[540px]">
           <FadeInUp>
-            <div>
+            <div className="mb-8 text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
                 Ваше путешествие начинается здесь
               </p>
 
-              <div className="mt-8 flex flex-col gap-3 sm:max-w-[360px]">
+              <div className="mt-4 flex justify-center">
                 <a
                   href="https://t.me/managerf2g"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 rounded-full bg-primary-light px-5 py-3 text-sm font-semibold text-text no-underline transition-all hover:bg-primary-medium"
+                  className="inline-flex items-center gap-3 rounded-full bg-primary-light px-5 py-3 text-sm font-semibold text-text no-underline transition-all hover:bg-primary-medium"
                 >
                   <Send size={16} className="text-primary" />
                   Telegram: @managerf2g

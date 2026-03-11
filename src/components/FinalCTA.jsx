@@ -13,20 +13,36 @@ export default function FinalCTA() {
   }
 
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+    <section id="final-cta" className="relative overflow-hidden bg-[#23101b] md:min-h-[80vh] md:flex md:items-center md:justify-center">
       {/* Background */}
       <img
         src={BG_IMAGE}
         alt="Горы Осетии — финальный призыв забронировать тур"
-        className="absolute inset-0 w-full h-full object-cover object-[center_40%]"
+        className="absolute inset-0 hidden h-full w-full object-cover object-[center_40%] md:block"
         loading="lazy"
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(41,11,27,0.18)_0%,rgba(41,11,27,0.52)_55%,rgba(41,11,27,0.72)_100%)]" />
+      <div className="absolute inset-0 hidden bg-[linear-gradient(180deg,rgba(41,11,27,0.18)_0%,rgba(41,11,27,0.52)_55%,rgba(41,11,27,0.72)_100%)] md:block" />
 
       {/* Content */}
-      <div className="relative z-10 text-center max-w-[700px] mx-auto px-6 py-20">
+      <div className="relative z-10 mx-auto max-w-[700px] px-6 py-14 text-center md:py-20">
+        <motion.div
+          className="relative mx-auto mb-8 max-w-[320px] overflow-hidden rounded-[28px] border border-white/10 shadow-[0_24px_60px_rgba(17,4,12,0.32)] md:hidden"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px 0px' }}
+          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+        >
+          <img
+            src={BG_IMAGE}
+            alt="Горы Осетии — финальный призыв забронировать тур"
+            className="aspect-[4/3] w-full object-cover object-center"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(41,11,27,0.08)_0%,rgba(41,11,27,0.22)_100%)]" />
+        </motion.div>
+
         <FadeInUp>
           <h2 className="font-heading font-bold text-[28px] md:text-[48px] text-text-on-dark mb-6 tracking-tight leading-tight">
             Сидеть на парящей лавочке на высоте 2560 метров или на рабочем стуле? Выбирайте.

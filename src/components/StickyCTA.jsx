@@ -20,7 +20,14 @@ export default function StickyCTA() {
         inBookingZone = rect.top < viewportHeight && rect.bottom > 0
       }
 
-      setVisible(pastHero && !inBookingZone)
+      const finalCtaEl = document.querySelector('#final-cta')
+      let inFinalCtaZone = false
+      if (finalCtaEl) {
+        const rect = finalCtaEl.getBoundingClientRect()
+        inFinalCtaZone = rect.top < viewportHeight * 0.85 && rect.bottom > viewportHeight * 0.15
+      }
+
+      setVisible(pastHero && !inBookingZone && !inFinalCtaZone)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -40,19 +47,17 @@ export default function StickyCTA() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed bottom-0 left-0 right-0 z-[90] lg:hidden"
-          style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+          className="pointer-events-none fixed bottom-4 left-4 right-4 z-[90] lg:hidden"
+          style={{ bottom: 'calc(1rem + env(safe-area-inset-bottom))' }}
         >
-          <div className="border-t border-border bg-[rgba(255,250,239,0.95)] shadow-[0_-2px_20px_rgba(41,11,27,0.05)] backdrop-blur-[12px]">
-            <div className="mx-auto flex max-w-container flex-col gap-2 px-4 py-3 min-[390px]:flex-row min-[390px]:items-center min-[390px]:justify-between">
-              <span className="text-[13px] leading-[1.35] text-text-light min-[390px]:text-sm">
-                <span className="block font-semibold text-text">от 49 500 руб.</span>
-                <span className="block">3 и 5 дней · до 12 мест</span>
-              </span>
-              <Button variant="stickySmall" onClick={handleClick} className="w-full !min-w-0 min-[390px]:w-auto">
-                Оставить заявку
-              </Button>
-            </div>
+          <div className="pointer-events-auto mx-auto max-w-[420px]">
+            <Button
+              variant="stickySmall"
+              onClick={handleClick}
+              className="w-full !min-w-0 !rounded-[18px] !py-4 shadow-[0_18px_40px_rgba(176,72,113,0.34)]"
+            >
+              Оставить заявку
+            </Button>
           </div>
         </motion.div>
       )}

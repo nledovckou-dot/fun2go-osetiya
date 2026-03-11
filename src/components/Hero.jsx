@@ -28,10 +28,13 @@ export default function Hero() {
   }
 
   return (
-    <section id="about" className="relative min-h-screen overflow-hidden pt-[72px]">
+    <section
+      id="about"
+      className="relative overflow-hidden bg-[#2d1725] pt-[72px] md:min-h-screen md:bg-transparent"
+    >
       <div
         ref={bgRef}
-        className="absolute inset-0 will-change-transform"
+        className="absolute inset-0 hidden will-change-transform md:block"
         style={{ top: '-10%', bottom: '-10%' }}
       >
         <motion.img
@@ -45,12 +48,27 @@ export default function Hero() {
         />
       </div>
 
-      <div className="absolute inset-0 bg-[rgba(41,11,27,0.56)]" />
+      <div className="absolute inset-0 hidden bg-[rgba(41,11,27,0.56)] md:block" />
 
-      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-72px)] max-w-container flex-col justify-center px-6 py-16 md:px-10 lg:px-12">
+      <div className="relative z-10 mx-auto flex max-w-container flex-col px-6 py-10 md:min-h-[calc(100vh-72px)] md:justify-center md:px-10 md:py-16 lg:px-12">
         <div className="mx-auto max-w-[860px] text-center">
           <motion.div
-            className="mb-8 flex flex-wrap items-center justify-center gap-3"
+            className="relative mx-auto mb-6 max-w-[320px] overflow-hidden rounded-[28px] border border-white/10 shadow-[0_24px_60px_rgba(17,4,12,0.32)] md:hidden"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+          >
+            <img
+              src={heroImage}
+              alt="Гости тура Fun2Go в Осетии с бокалами на фоне гор"
+              className="aspect-[4/3] w-full object-cover object-center"
+              loading="eager"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(41,11,27,0.08)_0%,rgba(41,11,27,0.2)_100%)]" />
+          </motion.div>
+
+          <motion.div
+            className="mb-6 flex flex-wrap items-center justify-center gap-3 md:mb-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
@@ -64,7 +82,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.h1
-            className="mb-6 font-heading text-4xl font-bold tracking-tight text-text-on-dark md:text-[56px] md:leading-[1.1]"
+            className="mb-5 font-heading text-[clamp(2.6rem,7vw,4rem)] font-bold tracking-tight text-text-on-dark md:mb-6 md:text-[56px] md:leading-[1.1]"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
@@ -75,7 +93,7 @@ export default function Hero() {
           </motion.h1>
 
           <motion.p
-            className="mx-auto mb-10 max-w-[640px] text-base leading-relaxed text-text-on-dark-muted md:text-[17px]"
+            className="mx-auto mb-8 max-w-[640px] text-base leading-relaxed text-text-on-dark-muted md:mb-10 md:text-[17px]"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
@@ -95,7 +113,7 @@ export default function Hero() {
         </div>
 
         <motion.div
-          className="mx-auto mt-12 grid max-w-[1040px] gap-4 rounded-[28px] border border-white/15 bg-[rgba(41,11,27,0.28)] p-5 backdrop-blur-[12px] md:grid-cols-[1.25fr_0.75fr]"
+          className="mx-auto mt-10 grid max-w-[1040px] gap-4 rounded-[28px] border border-white/15 bg-[rgba(41,11,27,0.72)] p-5 shadow-[0_20px_50px_rgba(41,11,27,0.16)] backdrop-blur-[12px] md:mt-12 md:bg-[rgba(41,11,27,0.28)] md:grid-cols-[1.25fr_0.75fr] md:shadow-none"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.1, duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
@@ -160,7 +178,7 @@ export default function Hero() {
       </div>
 
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 md:block"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.6 }}

@@ -41,7 +41,7 @@ export default function Included() {
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/70">
                   Стоимость тура
                 </p>
-                <div className="mt-4 md:mt-8 flex gap-6 md:block md:space-y-8">
+                <div className="mt-4 grid gap-4 min-[430px]:grid-cols-2 md:mt-8 md:block md:space-y-8">
                   <div>
                     <p className="inline-flex items-start gap-1 whitespace-nowrap font-heading text-[32px] md:text-[44px] font-bold leading-none text-accent sm:text-5xl">
                       <span>49 500</span>

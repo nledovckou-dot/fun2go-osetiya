@@ -84,6 +84,11 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+#root {
+  width: 100%;
+  overflow-x: clip;
+}
+
 *,
 *::before,
 *::after {

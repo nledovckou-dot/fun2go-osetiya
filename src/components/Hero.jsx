@@ -2,8 +2,7 @@ import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import { Button } from './ui/Button'
-
-const HERO_IMAGE = 'https://static.tildacdn.com/tild3237-6335-4834-a364-363435336235/IMG_0260_1.JPG'
+import heroImage from '../assets/hero-fun2go-osetia.jpg'
 
 const SHORT_DATES = ['1 мая - 3 мая', '9 мая - 11 мая']
 const LONG_DATES = ['22 апреля - 26 апреля', '13 мая - 17 мая']
@@ -36,9 +35,9 @@ export default function Hero() {
         style={{ top: '-10%', bottom: '-10%' }}
       >
         <motion.img
-          src={HERO_IMAGE}
-          alt="Панорама горного ущелья в Осетии — авторский тур Fun2Go"
-          className="h-full w-full object-cover"
+          src={heroImage}
+          alt="Гости тура Fun2Go в Осетии с бокалами на фоне гор"
+          className="h-full w-full object-cover object-[center_62%] md:object-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2 }}
@@ -46,7 +45,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="absolute inset-0 bg-[rgba(41,11,27,0.48)]" />
+      <div className="absolute inset-0 bg-[rgba(41,11,27,0.56)]" />
 
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-72px)] max-w-container flex-col justify-center px-6 py-16 md:px-10 lg:px-12">
         <div className="mx-auto max-w-[860px] text-center">

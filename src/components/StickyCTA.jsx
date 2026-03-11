@@ -43,13 +43,16 @@ export default function StickyCTA() {
           className="fixed bottom-0 left-0 right-0 z-[90] lg:hidden"
           style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
         >
-          <div className="flex items-center justify-between gap-3 px-6 py-3 bg-[rgba(255,250,239,0.95)] backdrop-blur-[12px] border-t border-border shadow-[0_-2px_20px_rgba(41,11,27,0.05)]">
-            <span className="text-sm text-text-light whitespace-nowrap">
-              от 49 500 руб. · 3 и 5 дней · до 12 мест
-            </span>
-            <Button variant="stickySmall" onClick={handleClick}>
-              Оставить заявку
-            </Button>
+          <div className="border-t border-border bg-[rgba(255,250,239,0.95)] shadow-[0_-2px_20px_rgba(41,11,27,0.05)] backdrop-blur-[12px]">
+            <div className="mx-auto flex max-w-container flex-col gap-2 px-4 py-3 min-[390px]:flex-row min-[390px]:items-center min-[390px]:justify-between">
+              <span className="text-[13px] leading-[1.35] text-text-light min-[390px]:text-sm">
+                <span className="block font-semibold text-text">от 49 500 руб.</span>
+                <span className="block">3 и 5 дней · до 12 мест</span>
+              </span>
+              <Button variant="stickySmall" onClick={handleClick} className="w-full !min-w-0 min-[390px]:w-auto">
+                Оставить заявку
+              </Button>
+            </div>
           </div>
         </motion.div>
       )}

@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Send } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Send, Heart, CheckCircle } from 'lucide-react'
 import { FadeInUp } from './ui/AnimatedSection'
 import { Button } from './ui/Button'
 
@@ -13,6 +14,73 @@ function formatPhone(value) {
   if (digits.length > 7) formatted += '-' + digits.slice(7, 9)
   if (digits.length > 9) formatted += '-' + digits.slice(9, 11)
   return formatted
+}
+
+function ThankYou() {
+  return (
+    <section className="bg-bg-alt py-16 md:py-24">
+      <div className="max-w-container mx-auto px-6 md:px-10 lg:px-12">
+        <div className="mx-auto max-w-[600px] text-center">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.1 }}
+            className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10"
+          >
+            <CheckCircle size={40} className="text-primary" />
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="font-heading text-[32px] font-bold uppercase tracking-tight text-text md:text-[48px]"
+          >
+            Благодарим за ваш выбор
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-4 text-lg text-text-light md:text-xl"
+          >
+            В ближайшее время с вами свяжется менеджер
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="mt-8 rounded-[20px] bg-white/70 p-6 text-center shadow-sm"
+          >
+            <p className="text-sm leading-relaxed text-text-light md:text-base">
+              Подпишитесь на наш Telegram-канал, чтобы первыми узнавать об анонсах туров,
+              интересных фактах о путешествиях и специальных предложениях
+            </p>
+            <a
+              href="https://t.me/fun2goru"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white no-underline transition-all hover:bg-primary-dark hover:shadow-lg"
+            >
+              <Send size={16} />
+              Подписаться
+            </a>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.9 }}
+            className="mt-6 flex items-center justify-center gap-1.5 text-sm text-text-muted"
+          >
+            Сделано с <Heart size={14} className="text-primary" fill="currentColor" /> командой Fun2Go
+          </motion.p>
+        </div>
+      </div>
+    </section>
+  )
 }
 
 export default function LeadForm() {
@@ -46,6 +114,10 @@ export default function LeadForm() {
     setSubmitted(true)
   }
 
+  if (submitted) {
+    return <ThankYou />
+  }
+
   return (
     <section id="lead-form" className="bg-white py-10 md:py-16">
       <div className="max-w-container mx-auto px-6 md:px-10 lg:px-12">
@@ -72,122 +144,111 @@ export default function LeadForm() {
 
           <FadeInUp delay={0.1}>
             <div className="rounded-[24px] bg-bg-alt p-5 shadow-md-ds md:p-6">
-              {submitted ? (
-                <div className="rounded-[24px] bg-white p-8 text-center">
-                  <h3 className="font-heading text-3xl font-bold text-text">
-                    Заявка подготовлена
-                  </h3>
-                  <p className="mt-4 text-base leading-relaxed text-text-light md:text-[17px]">
-                    Мы открыли черновик сообщения в Telegram с вашими данными. Если мессенджер не открылся автоматически, напишите нам вручную в @{`managerf2g`}.
-                  </p>
+              <form onSubmit={handleSubmit} className="space-y-3.5">
+                <div>
+                  <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-text">
+                    Имя
+                  </label>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Ваше имя"
+                    required
+                    className="min-h-[46px] w-full rounded-[14px] border border-border bg-white px-4 py-3 text-base text-text outline-none transition focus:border-primary focus:shadow-[0_0_0_4px_rgba(176,72,113,0.08)]"
+                  />
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-3.5">
-                  <div>
-                    <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-text">
-                      Имя
-                    </label>
-                    <input
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="Ваше имя"
-                      required
-                      className="min-h-[46px] w-full rounded-[14px] border border-border bg-white px-4 py-3 text-base text-text outline-none transition focus:border-primary focus:shadow-[0_0_0_4px_rgba(176,72,113,0.08)]"
-                    />
-                  </div>
 
-                  <div>
-                    <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-text">
-                      Телефон для связи
-                    </label>
-                    <input
-                      type="tel"
-                      value={phone}
-                      onChange={handlePhoneChange}
-                      placeholder="+7 (___) ___-__-__"
-                      required
-                      className="min-h-[46px] w-full rounded-[14px] border border-border bg-white px-4 py-3 text-base tracking-wider text-text outline-none transition focus:border-primary focus:shadow-[0_0_0_4px_rgba(176,72,113,0.08)]"
-                    />
-                  </div>
-
-
-                  <fieldset>
-                    <legend className="mb-2 block text-xs font-semibold uppercase tracking-wide text-text">
-                      Предпочитаемый способ связи
-                    </legend>
-                    <div className="grid gap-3 sm:grid-cols-3">
-                      {CONTACT_OPTIONS.map((option) => (
-                        <label
-                          key={option}
-                          className={`flex cursor-pointer items-center justify-center rounded-[12px] border px-3 py-3 text-sm font-semibold transition ${
-                            contact === option
-                              ? 'border-primary bg-primary text-white'
-                              : 'border-border bg-white text-text'
-                          }`}
-                        >
-                          <input
-                            type="radio"
-                            name="contact"
-                            value={option}
-                            checked={contact === option}
-                            onChange={(e) => setContact(e.target.value)}
-                            className="sr-only"
-                          />
-                          {option}
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-
-                  <label className="flex items-start gap-3 rounded-[14px] bg-white px-3 py-3 text-xs leading-relaxed text-text">
-                    <input
-                      type="checkbox"
-                      checked={personalConsent}
-                      onChange={(e) => setPersonalConsent(e.target.checked)}
-                      required
-                      className="mt-1 h-4 w-4 accent-primary"
-                    />
-                    <span>
-                      Я подтверждаю ознакомление и даю согласие на обработку моих персональных данных в порядке и на условиях, указанных в{' '}
-                      <a
-                        href="https://fun2go.ru/privacy"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-text underline underline-offset-2"
-                      >
-                        Политике обработки персональных данных
-                      </a>
-                      .
-                    </span>
+                <div>
+                  <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-text">
+                    Телефон для связи
                   </label>
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={handlePhoneChange}
+                    placeholder="+7 (___) ___-__-__"
+                    required
+                    className="min-h-[46px] w-full rounded-[14px] border border-border bg-white px-4 py-3 text-base tracking-wider text-text outline-none transition focus:border-primary focus:shadow-[0_0_0_4px_rgba(176,72,113,0.08)]"
+                  />
+                </div>
 
-                  <label className="flex items-start gap-3 rounded-[14px] bg-white px-3 py-3 text-xs leading-relaxed text-text">
-                    <input
-                      type="checkbox"
-                      checked={marketingConsent}
-                      onChange={(e) => setMarketingConsent(e.target.checked)}
-                      className="mt-1 h-4 w-4 accent-primary"
-                    />
-                    <span>
-                      Я подтверждаю своё согласие на получение{' '}
-                      <a
-                        href="https://fun2go.ru/soglasie_na_poluchenie_reklamy"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-text underline underline-offset-2"
+
+                <fieldset>
+                  <legend className="mb-2 block text-xs font-semibold uppercase tracking-wide text-text">
+                    Предпочитаемый способ связи
+                  </legend>
+                  <div className="grid gap-3 sm:grid-cols-3">
+                    {CONTACT_OPTIONS.map((option) => (
+                      <label
+                        key={option}
+                        className={`flex cursor-pointer items-center justify-center rounded-[12px] border px-3 py-3 text-sm font-semibold transition ${
+                          contact === option
+                            ? 'border-primary bg-primary text-white'
+                            : 'border-border bg-white text-text'
+                        }`}
                       >
-                        информационной рассылки
-                      </a>
-                      .
-                    </span>
-                  </label>
+                        <input
+                          type="radio"
+                          name="contact"
+                          value={option}
+                          checked={contact === option}
+                          onChange={(e) => setContact(e.target.value)}
+                          className="sr-only"
+                        />
+                        {option}
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
 
-                  <Button variant="primary" type="submit" fullWidth>
-                    Начать путешествие
-                  </Button>
-                </form>
-              )}
+                <label className="flex items-start gap-3 rounded-[14px] bg-white px-3 py-3 text-xs leading-relaxed text-text">
+                  <input
+                    type="checkbox"
+                    checked={personalConsent}
+                    onChange={(e) => setPersonalConsent(e.target.checked)}
+                    required
+                    className="mt-1 h-4 w-4 accent-primary"
+                  />
+                  <span>
+                    Я подтверждаю ознакомление и даю согласие на обработку моих персональных данных в порядке и на условиях, указанных в{' '}
+                    <a
+                      href="https://fun2go.ru/privacy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-text underline underline-offset-2"
+                    >
+                      Политике обработки персональных данных
+                    </a>
+                    .
+                  </span>
+                </label>
+
+                <label className="flex items-start gap-3 rounded-[14px] bg-white px-3 py-3 text-xs leading-relaxed text-text">
+                  <input
+                    type="checkbox"
+                    checked={marketingConsent}
+                    onChange={(e) => setMarketingConsent(e.target.checked)}
+                    className="mt-1 h-4 w-4 accent-primary"
+                  />
+                  <span>
+                    Я подтверждаю своё согласие на получение{' '}
+                    <a
+                      href="https://fun2go.ru/soglasie_na_poluchenie_reklamy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-text underline underline-offset-2"
+                    >
+                      информационной рассылки
+                    </a>
+                    .
+                  </span>
+                </label>
+
+                <Button variant="primary" type="submit" fullWidth>
+                  Начать путешествие
+                </Button>
+              </form>
             </div>
           </FadeInUp>
         </div>

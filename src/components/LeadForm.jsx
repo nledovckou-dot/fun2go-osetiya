@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Send, Heart, CheckCircle } from 'lucide-react'
+import { Send } from 'lucide-react'
 import { FadeInUp } from './ui/AnimatedSection'
 import { Button } from './ui/Button'
 
@@ -17,80 +16,12 @@ function formatPhone(value) {
   return formatted
 }
 
-function ThankYou() {
-  return (
-    <section className="bg-bg-alt py-16 md:py-24">
-      <div className="max-w-container mx-auto px-6 md:px-10 lg:px-12">
-        <div className="mx-auto max-w-[600px] text-center">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.1 }}
-            className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10"
-          >
-            <CheckCircle size={40} className="text-primary" />
-          </motion.div>
-
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="font-heading text-[32px] font-bold uppercase tracking-tight text-text md:text-[48px]"
-          >
-            Благодарим за ваш выбор
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-4 text-lg text-text-light md:text-xl"
-          >
-            В ближайшее время с вами свяжется менеджер
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="mt-8 rounded-[20px] bg-white/70 p-6 text-center shadow-sm"
-          >
-            <p className="text-sm leading-relaxed text-text-light md:text-base">
-              Подпишитесь на наш Telegram-канал, чтобы первыми узнавать об анонсах туров,
-              интересных фактах о путешествиях и специальных предложениях
-            </p>
-            <a
-              href="https://t.me/fun2goru"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3.5 text-sm font-semibold text-white no-underline transition-all hover:bg-primary-dark hover:shadow-lg"
-            >
-              <Send size={16} />
-              Подписаться
-            </a>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.9 }}
-            className="mt-6 flex items-center justify-center gap-1.5 text-sm text-text-muted"
-          >
-            Сделано с <Heart size={14} className="text-primary" fill="currentColor" /> командой Fun2Go
-          </motion.p>
-        </div>
-      </div>
-    </section>
-  )
-}
-
 export default function LeadForm() {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [contact, setContact] = useState('Telegram')
   const [personalConsent, setPersonalConsent] = useState(true)
   const [marketingConsent, setMarketingConsent] = useState(true)
-  const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
 
 
@@ -123,12 +54,8 @@ export default function LeadForm() {
       // Если Bitrix недоступен — не блокируем пользователя
     }
 
-    setSubmitted(true)
     setSubmitting(false)
-  }
-
-  if (submitted) {
-    return <ThankYou />
+    window.location.href = '/thanks'
   }
 
   return (

@@ -55,7 +55,7 @@ export default function LeadForm() {
     }
 
     setSubmitting(false)
-    window.location.href = '/thanks'
+    window.location.href = '/thanks-osetiya'
   }
 
   return (

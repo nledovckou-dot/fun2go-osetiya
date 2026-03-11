@@ -10,7 +10,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         original: resolve(__dirname, 'tur_v_osetiyu_3_5_dnej/index.html'),
-        thanks: resolve(__dirname, 'thanks/index.html'),
+        thanks: resolve(__dirname, 'thanks-osetiya/index.html'),
       },
     },
   },

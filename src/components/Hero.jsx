@@ -50,10 +50,10 @@ export default function Hero() {
 
       <div className="absolute inset-0 hidden bg-[rgba(41,11,27,0.56)] md:block" />
 
-      <div className="relative z-10 mx-auto flex max-w-container flex-col px-6 py-10 md:min-h-[calc(100vh-72px)] md:justify-center md:px-10 md:py-16 lg:px-12">
+      <div className="relative z-10 mx-auto flex max-w-container flex-col px-4 py-10 md:min-h-[calc(100vh-72px)] md:justify-center md:px-10 md:py-16 lg:px-12">
         <div className="mx-auto max-w-[860px] text-center">
           <motion.div
-            className="relative mx-auto mb-6 max-w-[320px] overflow-hidden rounded-[28px] border border-white/10 shadow-[0_24px_60px_rgba(17,4,12,0.32)] md:hidden"
+            className="relative mx-auto mb-6 w-full max-w-[358px] overflow-hidden rounded-[28px] border border-white/10 shadow-[0_24px_60px_rgba(17,4,12,0.32)] md:hidden"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}

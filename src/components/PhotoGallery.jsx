@@ -140,19 +140,15 @@ export default function PhotoGallery() {
         <div
           ref={scrollRef}
           className="hide-scrollbar flex gap-5 overflow-x-auto scroll-smooth px-6 md:px-10 lg:px-12"
-          style={{ scrollSnapType: 'x mandatory' }}
+          style={{ scrollSnapType: 'x proximity', overscrollBehaviorX: 'contain', WebkitOverflowScrolling: 'touch' }}
         >
           {GALLERY_IMAGES.map((image, index) => (
-            <motion.button
+            <button
               key={image.src}
               type="button"
               onClick={() => setSelectedIndex(index)}
               className="group relative flex-none cursor-pointer overflow-hidden rounded-[24px] border border-white/60 bg-white p-2 shadow-md transition-shadow hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
               style={{ width: CARD_WIDTH, scrollSnapAlign: 'start' }}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-5% 0px' }}
-              transition={{ duration: 0.5, delay: Math.min(index, 6) * 0.05, ease: [0.4, 0, 0.2, 1] }}
             >
               <div className="overflow-hidden rounded-[18px]">
                 <img
@@ -162,7 +158,7 @@ export default function PhotoGallery() {
                   loading="lazy"
                 />
               </div>
-            </motion.button>
+            </button>
           ))}
         </div>
       </div>

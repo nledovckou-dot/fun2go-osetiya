@@ -107,18 +107,17 @@ export default function LeadForm() {
     setSubmitting(true)
 
     try {
+      const params = new URLSearchParams()
+      params.append('fields[TITLE]', `Заявка с лендинга: ${name}`)
+      params.append('fields[NAME]', name)
+      params.append('fields[PHONE][0][VALUE]', phone)
+      params.append('fields[PHONE][0][VALUE_TYPE]', 'WORK')
+      params.append('fields[SOURCE_ID]', 'WEB')
+      params.append('fields[COMMENTS]', `Предпочтительный способ связи: ${contact}`)
+
       await fetch(`${BITRIX_WEBHOOK}/crm.lead.add`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          fields: {
-            TITLE: `Заявка с лендинга: ${name}`,
-            NAME: name,
-            PHONE: [{ VALUE: phone, VALUE_TYPE: 'WORK' }],
-            SOURCE_ID: 'WEB',
-            COMMENTS: `Предпочтительный способ связи: ${contact}`,
-          },
-        }),
+        body: params,
       })
     } catch {
       // Если Bitrix недоступен — не блокируем пользователя

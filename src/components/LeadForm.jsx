@@ -4,6 +4,7 @@ import { Send, Heart, CheckCircle } from 'lucide-react'
 import { FadeInUp } from './ui/AnimatedSection'
 import { Button } from './ui/Button'
 
+const BITRIX_WEBHOOK = 'https://fun2go.bitrix24.ru/rest/20587/mxjldwhp5oneq7gk'
 const CONTACT_OPTIONS = ['Звонок', 'Telegram', 'MAX']
 
 function formatPhone(value) {
@@ -90,6 +91,7 @@ export default function LeadForm() {
   const [personalConsent, setPersonalConsent] = useState(true)
   const [marketingConsent, setMarketingConsent] = useState(true)
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
 
   const handlePhoneChange = (e) => {
@@ -100,18 +102,30 @@ export default function LeadForm() {
     setPhone(formatPhone(value))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const message = [
-      'Новая заявка с лендинга Fun2Go',
-      `Имя: ${name}`,
-      `Телефон: ${phone}`,
-      `Предпочтительный способ связи: ${contact}`,
-    ].join('\n')
+    setSubmitting(true)
 
-    const telegramUrl = `https://t.me/managerf2g?text=${encodeURIComponent(message)}`
-    window.open(telegramUrl, '_blank', 'noopener,noreferrer')
+    try {
+      await fetch(`${BITRIX_WEBHOOK}/crm.lead.add`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fields: {
+            TITLE: `Заявка с лендинга: ${name}`,
+            NAME: name,
+            PHONE: [{ VALUE: phone, VALUE_TYPE: 'WORK' }],
+            SOURCE_ID: 'WEB',
+            COMMENTS: `Предпочтительный способ связи: ${contact}`,
+          },
+        }),
+      })
+    } catch {
+      // Если Bitrix недоступен — не блокируем пользователя
+    }
+
     setSubmitted(true)
+    setSubmitting(false)
   }
 
   if (submitted) {
@@ -245,8 +259,8 @@ export default function LeadForm() {
                   </span>
                 </label>
 
-                <Button variant="primary" type="submit" fullWidth>
-                  Начать путешествие
+                <Button variant="primary" type="submit" fullWidth disabled={submitting}>
+                  {submitting ? 'Отправляем...' : 'Начать путешествие'}
                 </Button>
               </form>
             </div>

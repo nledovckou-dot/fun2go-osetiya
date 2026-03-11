@@ -53,7 +53,7 @@ export default function Hero() {
       <div className="relative z-10 mx-auto flex max-w-container flex-col px-4 py-10 md:min-h-[calc(100vh-72px)] md:justify-center md:px-10 md:py-16 lg:px-12">
         <div className="mx-auto max-w-[860px] text-center">
           <motion.div
-            className="relative -mx-4 mb-6 overflow-hidden rounded-[28px] border border-white/10 shadow-[0_24px_60px_rgba(17,4,12,0.32)] md:hidden"
+            className="relative -mx-4 mb-6 overflow-hidden md:hidden"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
@@ -61,7 +61,7 @@ export default function Hero() {
             <img
               src={heroImage}
               alt="Гости тура Fun2Go в Осетии с бокалами на фоне гор"
-              className="aspect-[4/3] w-full object-cover object-center"
+              className="aspect-[5/4] w-full object-cover object-center"
               loading="eager"
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(41,11,27,0.08)_0%,rgba(41,11,27,0.2)_100%)]" />

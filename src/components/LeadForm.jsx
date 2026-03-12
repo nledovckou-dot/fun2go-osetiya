@@ -55,7 +55,13 @@ export default function LeadForm() {
     }
 
     setSubmitting(false)
-    window.location.href = './thanks-osetiya/'
+    // Redirect top-level window so URL changes in browser bar (for Yandex Direct tracking)
+    // Cross-origin navigation is allowed — browsers block reading, not navigating
+    try {
+      window.top.location.href = 'https://nledovckou-dot.github.io/fun2go-osetiya/thanks-osetiya/'
+    } catch {
+      window.location.href = './thanks-osetiya/'
+    }
   }
 
   return (

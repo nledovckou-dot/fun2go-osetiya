@@ -8,7 +8,7 @@ export default function ThankYouPage() {
       <header className="bg-[rgba(255,250,239,0.95)] border-b border-[rgba(41,11,27,0.05)]">
         <div className="max-w-container mx-auto px-6 md:px-10 lg:px-12">
           <nav className="flex items-center justify-center h-[72px]">
-            <a href="/">
+            <a href="../">
               <img
                 src="https://static.tildacdn.com/tild6265-3533-4936-b031-616437356530/logo_footer.svg"
                 alt="Fun2Go"

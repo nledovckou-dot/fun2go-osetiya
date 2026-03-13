@@ -7,10 +7,10 @@ import heroImage from '../assets/hero-fun2go-osetia.jpg'
 import { Calendar, Users } from 'lucide-react'
 
 const TOURS = [
-  { date: '1 — 3 мая', duration: '3 дня' },
-  { date: '9 — 11 мая', duration: '3 дня' },
-  { date: '22 — 26 апреля', duration: '5 дней' },
-  { date: '13 — 17 мая', duration: '5 дней' },
+  { duration: '5 дней', date: '22 — 26 апреля' },
+  { duration: '3 дня', date: '1 — 3 мая' },
+  { duration: '3 дня', date: '9 — 11 мая' },
+  { duration: '5 дней', date: '13 — 17 мая' },
 ]
 
 export default function Hero() {

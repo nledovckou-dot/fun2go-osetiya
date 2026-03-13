@@ -24,6 +24,11 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      - name: Create aliases for old Tilda filenames
+        run: |
+          cp dist/assets/vendor.js dist/assets/index-CcuGOH80.js
+          cp dist/assets/vendor2.js dist/assets/main-Cz8dNHXw.js
+          cp dist/assets/index.css dist/assets/index-mkzZWK15.css
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

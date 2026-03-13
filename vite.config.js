@@ -12,6 +12,11 @@ export default defineConfig({
         original: resolve(__dirname, 'tur_v_osetiyu_3_5_dnej/index.html'),
         thanks: resolve(__dirname, 'thanks-osetiya/index.html'),
       },
+      output: {
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/vendor.js',
+        assetFileNames: 'assets/[name][extname]',
+      },
     },
   },
 })

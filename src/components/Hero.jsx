@@ -4,8 +4,14 @@ import { ChevronDown } from 'lucide-react'
 import { Button } from './ui/Button'
 import heroImage from '../assets/hero-fun2go-osetia.jpg'
 
-const SHORT_DATES = ['1 мая - 3 мая', '9 мая - 11 мая']
-const LONG_DATES = ['22 апреля - 26 апреля', '13 мая - 17 мая']
+import { Calendar, Users, Sparkles } from 'lucide-react'
+
+const TOURS = [
+  { date: '1 — 3 мая', duration: '3 дня', price: '49 500 ₽', badge: 'Майские' },
+  { date: '9 — 11 мая', duration: '3 дня', price: '49 500 ₽', badge: 'Майские' },
+  { date: '22 — 26 апреля', duration: '5 дней', price: '79 900 ₽', badge: 'Полный тур' },
+  { date: '13 — 17 мая', duration: '5 дней', price: '79 900 ₽', badge: 'Полный тур' },
+]
 
 export default function Hero() {
   const bgRef = useRef(null)
@@ -112,68 +118,66 @@ export default function Hero() {
           </motion.div>
         </div>
 
+        {/* Stats banner */}
         <motion.div
-          className="mx-auto mt-10 grid max-w-[1040px] gap-4 rounded-[28px] border border-white/15 bg-[rgba(41,11,27,0.72)] p-5 shadow-[0_20px_50px_rgba(41,11,27,0.16)] backdrop-blur-[12px] md:mt-12 md:bg-[rgba(41,11,27,0.28)] md:grid-cols-[1.25fr_0.75fr] md:shadow-none"
+          className="mx-auto mt-10 flex flex-wrap items-center justify-center gap-4 md:mt-12 md:gap-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0, duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+        >
+          <div className="flex items-center gap-2 rounded-full border border-accent/40 bg-[rgba(41,11,27,0.5)] px-5 py-2.5 backdrop-blur-[12px]">
+            <Sparkles size={16} className="text-accent" />
+            <span className="text-sm font-semibold text-accent">от 49 500 ₽</span>
+          </div>
+          <div className="flex items-center gap-2 rounded-full border border-white/20 bg-[rgba(41,11,27,0.5)] px-5 py-2.5 backdrop-blur-[12px]">
+            <Users size={16} className="text-white/70" />
+            <span className="text-sm font-semibold text-white/80">мини-группа до 12 чел.</span>
+          </div>
+          <div className="flex items-center gap-2 rounded-full border border-white/20 bg-[rgba(41,11,27,0.5)] px-5 py-2.5 backdrop-blur-[12px]">
+            <span className="text-sm font-semibold text-white/80">предоплата 30%</span>
+          </div>
+        </motion.div>
+
+        {/* Tour date cards */}
+        <motion.div
+          className="mx-auto mt-6 grid max-w-[1040px] gap-4 sm:grid-cols-2 md:mt-8"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.1, duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ delay: 1.2, duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
         >
-          <div className="rounded-[20px] border border-white/10 bg-[rgba(255,255,255,0.06)] p-5">
-            <h3 className="mb-4 font-heading text-[28px] font-semibold text-accent">
-              Ближайшие даты
-            </h3>
-            <div className="grid gap-4 md:grid-cols-2">
-              <div>
-                <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-white/70">
-                  3 дня
-                </p>
-                <div className="space-y-2">
-                  {SHORT_DATES.map((date) => (
-                    <div key={date} className="rounded-[14px] border border-accent/60 px-4 py-3 text-center text-sm font-semibold text-text-on-dark">
-                      {date}
-                    </div>
-                  ))}
-                </div>
+          {TOURS.map((tour) => (
+            <div
+              key={tour.date}
+              className="group relative overflow-hidden rounded-[24px] border border-white/15 bg-[rgba(41,11,27,0.6)] p-6 backdrop-blur-[16px] transition-all duration-300 hover:border-accent/40 hover:bg-[rgba(41,11,27,0.7)] md:bg-[rgba(41,11,27,0.3)]"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <span className="rounded-full bg-accent/20 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-accent">
+                  {tour.badge}
+                </span>
+                <span className="rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-white/70">
+                  {tour.duration}
+                </span>
               </div>
-              <div>
-                <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-white/70">
-                  5 дней
-                </p>
-                <div className="space-y-2">
-                  {LONG_DATES.map((date) => (
-                    <div key={date} className="rounded-[14px] border border-accent/60 px-4 py-3 text-center text-sm font-semibold text-text-on-dark">
-                      {date}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-1">
-            <div className="rounded-[20px] border border-accent/60 bg-[rgba(255,255,255,0.06)] p-5 text-center">
-              <p className="text-sm font-semibold uppercase tracking-wide text-white/70">
-                Стоимость
+              <div className="mb-2 flex items-center gap-2.5">
+                <Calendar size={18} className="text-accent/80" />
+                <p className="font-heading text-2xl font-bold text-text-on-dark md:text-[28px]">
+                  {tour.date}
+                </p>
+              </div>
+
+              <p className="mb-5 font-heading text-3xl font-black text-accent md:text-4xl">
+                {tour.price}
               </p>
-              <p className="mt-2 font-heading text-4xl font-bold text-accent">
-                от 49 500 ₽
-              </p>
-              <p className="mt-2 text-sm text-text-on-dark-muted">
-                бронирование по предоплате 30%
-              </p>
+
+              <button
+                onClick={handleCTAClick}
+                className="w-full rounded-[14px] bg-primary py-3.5 text-sm font-bold uppercase tracking-wide text-white transition-all duration-200 hover:bg-primary-hover hover:shadow-[0_8px_24px_rgba(176,72,113,0.35)]"
+              >
+                Оставить заявку
+              </button>
             </div>
-            <div className="rounded-[20px] border border-accent/60 bg-[rgba(255,255,255,0.06)] p-5 text-center">
-              <p className="text-sm font-semibold uppercase tracking-wide text-white/70">
-                Формат
-              </p>
-              <p className="mt-2 font-heading text-4xl font-bold text-accent">
-                до 12
-              </p>
-              <p className="mt-2 text-sm text-text-on-dark-muted">
-                человек в мини-группе
-              </p>
-            </div>
-          </div>
+          ))}
         </motion.div>
       </div>
 

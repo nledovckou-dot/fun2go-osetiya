@@ -55,12 +55,11 @@ export default function LeadForm() {
     }
 
     setSubmitting(false)
-    // Redirect top-level window so URL changes in browser bar (for Yandex Direct tracking)
-    // Cross-origin navigation is allowed — browsers block reading, not navigating
+    // Redirect top-level window to Tilda thank-you page (for Yandex Direct tracking)
     try {
-      window.top.location.href = 'https://nledovckou-dot.github.io/fun2go-osetiya/thanks-osetiya/'
+      window.top.location.href = 'https://fun2go.ru/thanks-osetiya'
     } catch {
-      window.location.href = './thanks-osetiya/'
+      window.location.href = 'https://fun2go.ru/thanks-osetiya'
     }
   }
 

@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: './',
+  base: 'https://nledovckou-dot.github.io/fun2go-osetiya/',
   build: {
     rollupOptions: {
       input: {

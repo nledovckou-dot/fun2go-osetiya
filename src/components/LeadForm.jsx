@@ -55,12 +55,7 @@ export default function LeadForm() {
     }
 
     setSubmitting(false)
-    // Redirect top-level window to Tilda thank-you page (for Yandex Direct tracking)
-    try {
-      window.top.location.href = 'https://fun2go.ru/thanks-osetiya'
-    } catch {
-      window.location.href = 'https://fun2go.ru/thanks-osetiya'
-    }
+    window.location.href = 'https://fun2go.ru/thanks-osetiya'
   }
 
   return (

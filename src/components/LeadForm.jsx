@@ -4,6 +4,7 @@ import { FadeInUp } from './ui/AnimatedSection'
 import { Button } from './ui/Button'
 
 const BITRIX_WEBHOOK = 'https://fun2go.bitrix24.ru/rest/20587/mxjldwhp5oneq7gk'
+const CALLTOUCH_SITE_ID = '80346'
 const CONTACT_OPTIONS = ['Звонок', 'Telegram', 'MAX']
 
 function formatPhone(value) {
@@ -37,6 +38,7 @@ export default function LeadForm() {
     e.preventDefault()
     setSubmitting(true)
 
+    // Отправка в Bitrix CRM
     try {
       const params = new URLSearchParams()
       params.append('fields[TITLE]', `Заявка с лендинга: ${name}`)
@@ -52,6 +54,39 @@ export default function LeadForm() {
       })
     } catch {
       // Если Bitrix недоступен — не блокируем пользователя
+    }
+
+    // Отправка заявки в Calltouch
+    try {
+      let sessionId = ''
+      try {
+        sessionId = window.ct('calltracking_params', '75c03dzw').sessionId
+      } catch {
+        // Calltouch ещё не загрузился — отправляем без sessionId
+      }
+
+      const phoneDigits = phone.replace(/\D/g, '')
+
+      const ctData = {
+        fio: name,
+        phoneNumber: phoneDigits,
+        subject: 'Заявка с сайта',
+        tags: `Способ связи: ${contact}`,
+        comment: `Предпочтительный способ связи: ${contact}`,
+        requestUrl: location.href,
+        sessionId,
+      }
+
+      await fetch(
+        `https://api.calltouch.ru/calls-service/RestAPI/requests/${CALLTOUCH_SITE_ID}/register/`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(ctData),
+        }
+      )
+    } catch {
+      // Если Calltouch недоступен — не блокируем пользователя
     }
 
     setSubmitting(false)

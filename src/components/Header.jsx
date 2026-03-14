@@ -64,6 +64,7 @@ export default function Header() {
                 src="https://static.tildacdn.com/tild6265-3533-4936-b031-616437356530/logo_footer.svg"
                 alt="Fun2Go"
                 className="h-8"
+                style={{ height: '2rem', display: 'inline-block' }}
               />
               <button
                 className="flex min-h-[48px] min-w-[48px] items-center justify-center rounded-full bg-white/80 p-2 transition-colors hover:bg-white"
@@ -116,6 +117,7 @@ export default function Header() {
                 src="https://static.tildacdn.com/tild6265-3533-4936-b031-616437356530/logo_footer.svg"
                 alt="Fun2Go"
                 className={`h-8 transition-all duration-300 ${scrolled ? '' : 'brightness-0 invert'}`}
+                style={{ height: '2rem', display: 'inline-block' }}
               />
             </a>
 

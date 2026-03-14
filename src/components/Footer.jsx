@@ -56,6 +56,7 @@ export default function Footer() {
               src="https://static.tildacdn.com/tild6265-3533-4936-b031-616437356530/logo_footer.svg"
               alt="Fun2Go"
               className="h-20 w-auto brightness-0 invert"
+              style={{ height: '5rem', display: 'inline-block' }}
             />
           </div>
 
@@ -75,6 +76,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-primary transition-transform hover:scale-105"
+              style={{ color: 'var(--color-primary)' }}
               aria-label="Telegram"
             >
               <Send size={18} />
@@ -97,6 +99,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-primary transition-transform hover:scale-105"
+              style={{ color: 'var(--color-primary)' }}
               aria-label="MAX"
             >
               <MessageCircleMore size={18} />

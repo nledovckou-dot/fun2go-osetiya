@@ -121,7 +121,7 @@ export default function Header() {
               />
             </a>
 
-            <div className="hidden lg:flex items-center gap-2 rounded-full border border-white/20 px-3 py-2 backdrop-blur-[12px]">
+            <div className="hidden lg:flex items-center gap-2">
               {NAV_ITEMS.map((item) => (
                 <a
                   key={item.href}

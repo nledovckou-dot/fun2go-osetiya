@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import { Button } from './ui/Button'
-import heroImage from '../assets/hero-fun2go-osetia.jpg'
+import heroImage from '../assets/hero-fun2go-osetia.webp'
 
 import { Calendar, Users } from 'lucide-react'
 

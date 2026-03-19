@@ -106,8 +106,8 @@ export default function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
           scrolled
-            ? 'bg-[rgba(255,250,239,0.95)] backdrop-blur-[12px] shadow-sm-ds border-b border-[rgba(41,11,27,0.05)]'
-            : 'bg-[rgba(0,0,0,0.1)] backdrop-blur-[8px] border-b border-white/10'
+            ? 'bg-[rgba(255,250,239,0.98)] shadow-sm-ds border-b border-[rgba(41,11,27,0.05)]'
+            : 'bg-[rgba(0,0,0,0.18)] border-b border-white/10'
         }`}
       >
         <div className="max-w-container mx-auto px-6 md:px-10 lg:px-12">

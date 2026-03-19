@@ -79,10 +79,10 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
-            <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/15 px-4 py-2 text-[13px] font-semibold uppercase tracking-wide text-text-on-dark backdrop-blur-[8px]">
+            <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/20 px-4 py-2 text-[13px] font-semibold uppercase tracking-wide text-text-on-dark">
               5 дней / 4 ночи
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/15 px-4 py-2 text-[13px] font-semibold uppercase tracking-wide text-text-on-dark backdrop-blur-[8px]">
+            <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/20 px-4 py-2 text-[13px] font-semibold uppercase tracking-wide text-text-on-dark">
               Мини-группа до 12 человек
             </span>
           </motion.div>
@@ -120,7 +120,7 @@ export default function Hero() {
 
         {/* Price & format header */}
         <motion.div
-          className="mx-auto mt-10 max-w-[1040px] rounded-[24px] border border-white/15 bg-[rgba(41,11,27,0.6)] p-6 backdrop-blur-[16px] md:mt-12 md:bg-[rgba(41,11,27,0.28)]"
+          className="mx-auto mt-10 max-w-[1040px] rounded-[24px] border border-white/15 bg-[rgba(41,11,27,0.75)] p-6 md:mt-12 md:bg-[rgba(41,11,27,0.28)]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
@@ -159,7 +159,7 @@ export default function Hero() {
           {TOURS.map((tour) => (
             <div
               key={tour.date}
-              className="group relative overflow-hidden rounded-[20px] border border-white/15 bg-[rgba(41,11,27,0.6)] p-5 backdrop-blur-[16px] transition-all duration-300 hover:border-accent/40 hover:bg-[rgba(41,11,27,0.7)] md:bg-[rgba(41,11,27,0.3)]"
+              className="group relative overflow-hidden rounded-[20px] border border-white/15 bg-[rgba(41,11,27,0.78)] p-5 transition-all duration-300 hover:border-accent/40 hover:bg-[rgba(41,11,27,0.7)] md:bg-[rgba(41,11,27,0.5)]"
             >
               <span className="mb-3 inline-block rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white/70">
                 {tour.duration}

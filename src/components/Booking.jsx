@@ -44,13 +44,6 @@ export default function Booking() {
           ))}
         </div>
 
-        <FadeInUp delay={0.2}>
-          <div className="text-center space-y-2">
-            <p className="text-text-light text-sm">
-              После выбора даты вы перейдёте к финальной форме заявки.
-            </p>
-          </div>
-        </FadeInUp>
       </div>
     </section>
   )

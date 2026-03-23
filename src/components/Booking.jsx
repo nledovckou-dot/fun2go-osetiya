@@ -46,9 +46,6 @@ export default function Booking() {
 
         <FadeInUp delay={0.2}>
           <div className="text-center space-y-2">
-            <p className="text-text text-base">
-              В карточках оставили только даты и кнопку «Забронировать», как было указано в документе.
-            </p>
             <p className="text-text-light text-sm">
               После выбора даты вы перейдёте к финальной форме заявки.
             </p>

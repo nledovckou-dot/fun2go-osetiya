@@ -1,10 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Send } from 'lucide-react'
 import { FadeInUp } from './ui/AnimatedSection'
 import { Button } from './ui/Button'
 
 const BITRIX_WEBHOOK = 'https://fun2go.bitrix24.ru/rest/20587/mxjldwhp5oneq7gk'
+const CALLTOUCH_SITE_ID = '80346'
+const CALLTOUCH_KEY = '75c03dzw'
+const METRIKA_ID = 92486573
+const THANKS_URL = 'https://fun2go.ru/thanks-osetiya'
 const CONTACT_OPTIONS = ['Звонок', 'Telegram', 'MAX']
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']
 
 function formatPhone(value) {
   const digits = value.replace(/\D/g, '')
@@ -16,6 +21,116 @@ function formatPhone(value) {
   return formatted
 }
 
+function captureAndReadUtm() {
+  const utm = {}
+  try {
+    const qs = new URLSearchParams(window.location.search)
+    for (const key of UTM_KEYS) {
+      const fromUrl = qs.get(key)
+      if (fromUrl) {
+        utm[key] = fromUrl
+        try { localStorage.setItem(`lp_${key}`, fromUrl) } catch { /* quota */ }
+      } else {
+        try { utm[key] = localStorage.getItem(`lp_${key}`) || '' } catch { utm[key] = '' }
+      }
+    }
+  } catch { /* no window/storage */ }
+  return utm
+}
+
+function getCtSessionId() {
+  try {
+    const params = typeof window.ct === 'function'
+      ? window.ct('calltracking_params', CALLTOUCH_KEY)
+      : null
+    return (params && params.sessionId) || ''
+  } catch {
+    return ''
+  }
+}
+
+function fireMetrikaGoal(goal) {
+  try {
+    if (typeof window.ym === 'function') {
+      window.ym(METRIKA_ID, 'reachGoal', goal)
+    }
+  } catch (err) {
+    console.error('[LeadForm] Metrika goal failed:', err)
+  }
+}
+
+async function sendToCalltouch({ name, phoneDigits, contact, utm, sessionId }) {
+  try {
+    const ctData = {
+      fio: name,
+      phoneNumber: phoneDigits,
+      subject: 'Заявка с лендинга Осетия',
+      tags: `Способ связи: ${contact}`,
+      comment: `Предпочтительный способ связи: ${contact}`,
+      requestUrl: window.location.href,
+      sessionId,
+      ...utm,
+    }
+    const response = await fetch(
+      `https://api.calltouch.ru/calls-service/RestAPI/requests/${CALLTOUCH_SITE_ID}/register/`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(ctData),
+      }
+    )
+    if (!response.ok) {
+      console.error('[LeadForm] Calltouch status', response.status)
+    }
+  } catch (err) {
+    console.error('[LeadForm] Calltouch request failed:', err)
+  }
+}
+
+async function sendToBitrix({ name, phone, contact, utm, sessionId }) {
+  try {
+    const params = new URLSearchParams()
+    params.append('fields[TITLE]', `Заявка с лендинга Осетия: ${name}`)
+    params.append('fields[NAME]', name)
+    params.append('fields[PHONE][0][VALUE]', phone)
+    params.append('fields[PHONE][0][VALUE_TYPE]', 'WORK')
+    params.append('fields[SOURCE_ID]', 'WEB')
+    params.append('fields[UTM_SOURCE]', utm.utm_source || '')
+    params.append('fields[UTM_MEDIUM]', utm.utm_medium || '')
+    params.append('fields[UTM_CAMPAIGN]', utm.utm_campaign || '')
+    params.append('fields[UTM_TERM]', utm.utm_term || '')
+    params.append('fields[UTM_CONTENT]', utm.utm_content || '')
+    params.append(
+      'fields[COMMENTS]',
+      [
+        `Предпочтительный способ связи: ${contact}`,
+        `Страница: ${window.location.href}`,
+        sessionId ? `Calltouch session: ${sessionId}` : '',
+      ]
+        .filter(Boolean)
+        .join('\n')
+    )
+
+    const response = await fetch(`${BITRIX_WEBHOOK}/crm.lead.add`, {
+      method: 'POST',
+      body: params,
+    })
+    if (!response.ok) {
+      console.error('[LeadForm] Bitrix status', response.status)
+    }
+  } catch (err) {
+    console.error('[LeadForm] Bitrix request failed:', err)
+  }
+}
+
+function redirectToThanks() {
+  try {
+    window.top.location.href = THANKS_URL
+  } catch {
+    window.location.href = THANKS_URL
+  }
+}
+
 export default function LeadForm() {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
@@ -24,6 +139,10 @@ export default function LeadForm() {
   const [marketingConsent, setMarketingConsent] = useState(true)
   const [submitting, setSubmitting] = useState(false)
 
+  // Сохраняем UTM в localStorage при первом заходе, чтобы они пережили навигацию
+  useEffect(() => {
+    captureAndReadUtm()
+  }, [])
 
   const handlePhoneChange = (e) => {
     let value = e.target.value
@@ -37,25 +156,19 @@ export default function LeadForm() {
     e.preventDefault()
     setSubmitting(true)
 
-    try {
-      const params = new URLSearchParams()
-      params.append('fields[TITLE]', `Заявка с лендинга: ${name}`)
-      params.append('fields[NAME]', name)
-      params.append('fields[PHONE][0][VALUE]', phone)
-      params.append('fields[PHONE][0][VALUE_TYPE]', 'WORK')
-      params.append('fields[SOURCE_ID]', 'WEB')
-      params.append('fields[COMMENTS]', `Предпочтительный способ связи: ${contact}`)
+    const utm = captureAndReadUtm()
+    const sessionId = getCtSessionId()
+    const phoneDigits = phone.replace(/\D/g, '')
 
-      await fetch(`${BITRIX_WEBHOOK}/crm.lead.add`, {
-        method: 'POST',
-        body: params,
-      })
-    } catch {
-      // Если Bitrix недоступен — не блокируем пользователя
-    }
+    fireMetrikaGoal('lead_submit')
+
+    await Promise.all([
+      sendToCalltouch({ name, phoneDigits, contact, utm, sessionId }),
+      sendToBitrix({ name, phone, contact, utm, sessionId }),
+    ])
 
     setSubmitting(false)
-    window.location.href = 'https://fun2go.ru/thanks-osetiya'
+    redirectToThanks()
   }
 
   return (
@@ -91,10 +204,13 @@ export default function LeadForm() {
                   </label>
                   <input
                     type="text"
+                    name="Name"
+                    autoComplete="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Ваше имя"
                     required
+                    data-tilda-rule="name"
                     className="min-h-[46px] w-full rounded-[14px] border border-border bg-white px-4 py-3 text-base text-text outline-none transition focus:border-primary focus:shadow-[0_0_0_4px_rgba(176,72,113,0.08)]"
                   />
                 </div>
@@ -105,10 +221,13 @@ export default function LeadForm() {
                   </label>
                   <input
                     type="tel"
+                    name="Phone"
+                    autoComplete="tel"
                     value={phone}
                     onChange={handlePhoneChange}
                     placeholder="+7 (___) ___-__-__"
                     required
+                    data-tilda-rule="phone"
                     className="min-h-[46px] w-full rounded-[14px] border border-border bg-white px-4 py-3 text-base tracking-wider text-text outline-none transition focus:border-primary focus:shadow-[0_0_0_4px_rgba(176,72,113,0.08)]"
                   />
                 </div>
